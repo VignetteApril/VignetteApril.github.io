@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ruby,YAML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Ruby中的YAMLRuby和YAML的关系Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。 列表表示一个列表很简单，在每个条目前加入一个短横线。比如 123- Item1- Item2- Item3 在Ruby中会被解释为数">
+<meta name="keywords" content="Ruby,YAML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby和YAML">
+<meta property="og:url" content="http://yoursite.com/2016/06/12/Ruby和YAML/index.html">
+<meta property="og:site_name" content="VignetteApril">
+<meta property="og:description" content="Ruby中的YAMLRuby和YAML的关系Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。 列表表示一个列表很简单，在每个条目前加入一个短横线。比如 123- Item1- Item2- Item3 在Ruby中会被解释为数">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-24T08:25:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby和YAML">
+<meta name="twitter:description" content="Ruby中的YAMLRuby和YAML的关系Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。 列表表示一个列表很简单，在每个条目前加入一个短横线。比如 123- Item1- Item2- Item3 在Ruby中会被解释为数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/12/Ruby和YAML/"/>
+
+
+
+
+
+  <title>Ruby和YAML | VignetteApril</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VignetteApril</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/12/Ruby和YAML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="VignetteApril">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VignetteApril">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ruby和YAML</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-12T00:00:00+08:00">
+                2016-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Ruby中的YAML"><a href="#Ruby中的YAML" class="headerlink" title="Ruby中的YAML"></a>Ruby中的YAML</h1><h2 id="Ruby和YAML的关系"><a href="#Ruby和YAML的关系" class="headerlink" title="Ruby和YAML的关系"></a>Ruby和YAML的关系</h2><p>Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。</p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>表示一个列表很简单，在每个条目前加入一个短横线。比如</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Item1</span><br><span class="line">- Item2</span><br><span class="line">- Item3</span><br></pre></td></tr></table></figure>
+<p>在Ruby中会被解释为数组对象(Array),上例为：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[“Item1”, “Item2”, “Item3”]</span><br></pre></td></tr></table></figure>
+<p>另外，如果向如下情况</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">indusdata_tables:</span></span><br><span class="line">  综合<span class="symbol">:</span></span><br><span class="line">    - [供应商综合信息表, [收款人名称]]</span><br></pre></td></tr></table></figure>
+<p>Ruby解析后如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># indusdata_tables: 对应一个哈希</span></span><br><span class="line"><span class="string">'indusdata_tables'</span> =&gt; &#123; <span class="string">'综合'</span> =&gt; [ [<span class="string">'供应商综合信息表'</span>, [收款人名称] ] ] &#125;</span><br></pre></td></tr></table></figure>
+<p>如果想在Ruby代码中使用YAML配置文件中的内容</p>
+<h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><p>类似于下列代码</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key1 : value1</span><br><span class="line">key2 : value2</span><br><span class="line">key3 : value3</span><br></pre></td></tr></table></figure>
+<p>在Ruby中会被解释为如下的哈希对象</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"key1"</span>=&gt;<span class="string">"value1"</span>, <span class="string">"key2"</span>=&gt;<span class="string">"value2"</span>, <span class="string">"key3"</span>=&gt;<span class="string">"value3"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="字符串和其他基本类型"><a href="#字符串和其他基本类型" class="headerlink" title="字符串和其他基本类型"></a>字符串和其他基本类型</h2><p>YAML会自动判断类型，一般性的文字都会被解释成为字符串。在有可能发生歧义的情况下，可以为字符串加上单引号或者双引号（在双引号下转义字符会被转义，方式与C语言类似）来避免歧义。<br>下面是一个例子。包含有字符串，正数，浮点数，和日期类型</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> : <span class="number">1.0</span></span><br><span class="line"><span class="number">1.0</span> : <span class="string">"1.0"</span></span><br><span class="line"><span class="string">"1.0"</span> : <span class="number">2006</span>-<span class="number">01</span>-<span class="number">01</span></span><br></pre></td></tr></table></figure>
+<p>上述代码在Ruby中会被解释为</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">1</span>=&gt;<span class="number">1.0</span>, <span class="string">"1.0"</span>=&gt;#&lt;Date: 4907473/2,0,2299161&gt;, <span class="number">1.0</span>=&gt;<span class="string">"1.0"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出它的类型被YAML很好的识别出来了</p>
+<h2 id="字符串块"><a href="#字符串块" class="headerlink" title="字符串块"></a>字符串块</h2><p>字符串可能会占据多行，可以用两种方式来处理这种情况，一种是保留换行符，另外一种则是去除换符<br>用|来表示保留换行符：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">|</span></span><br><span class="line"><span class="params">  This is line1.</span></span><br><span class="line"><span class="params">  This is line2.</span></span><br><span class="line"><span class="params">  This is line3.</span></span><br></pre></td></tr></table></figure>
+<p>它会被Ruby解释为：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"This is line1./nThis is line2./nThis is line3."</span></span><br></pre></td></tr></table></figure>
+<p>用&gt;表示删除换行符</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">  Hello,</span><br><span class="line">  world.</span><br></pre></td></tr></table></figure>
+<p>它会被Ruby解释为</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Hello,  world."</span></span><br></pre></td></tr></table></figure>
+<p>除了上面的基本类型，还有更复杂的类型，比如列表中也可以存在另一个列表，哈希中也可能存在另一个哈希，像这种嵌套的方式在YAML中 也是支持的</p>
+<p>对于重复出现的项目，可以用&amp;进行定义，然后用*进行引用。下面用一个比较完整的例子来说明这些内容</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">logEvent:</span>    Purchase Invoice</span><br><span class="line"><span class="symbol">date:</span>        <span class="number">2007</span>-08-<span class="number">06</span></span><br><span class="line"><span class="symbol">customer:</span></span><br><span class="line">    <span class="symbol">given:</span>   Dorothy</span><br><span class="line">    <span class="symbol">family:</span>  Gale</span><br><span class="line"></span><br><span class="line">bill-<span class="symbol">to:</span>  &amp;id001</span><br><span class="line">    <span class="symbol">street:</span> <span class="params">|</span></span><br><span class="line"><span class="params">            123 Tornado Alley</span></span><br><span class="line"><span class="params">            Suite 16</span></span><br><span class="line"><span class="params">    city:   East Westville</span></span><br><span class="line"><span class="params">    state:  KA</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">ship-to:  *id001   </span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">items:</span></span><br><span class="line"><span class="params">    - part_no:   A4786</span></span><br><span class="line"><span class="params">      descrip:   Water Bucket (Filled)</span></span><br><span class="line"><span class="params">      price:     1.47</span></span><br><span class="line"><span class="params">      quantity:  4</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">    - part_no:   E1628</span></span><br><span class="line"><span class="params">      descrip:   High Heeled "Ruby" Slippers</span></span><br><span class="line"><span class="params">      price:     100.27</span></span><br><span class="line"><span class="params">      quantity:  1</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">specialDelivery:  &gt;</span></span><br><span class="line"><span class="params">    Follow the Yellow Brick</span></span><br><span class="line"><span class="params">    Road to the Emerald City.</span></span><br><span class="line"><span class="params">    Pay no attention to the</span></span><br><span class="line"><span class="params">    man behind the curtain.</span></span><br></pre></td></tr></table></figure>
+<p>在Ruby中解释如下</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"items"</span>=&gt;[</span><br><span class="line">    &#123;<span class="string">"price"</span>=&gt;<span class="number">1.47</span>, <span class="string">"quantity"</span>=&gt;<span class="number">4</span>, <span class="string">"part_no"</span>=&gt;<span class="string">"A4786"</span>, <span class="string">"descrip"</span>=&gt;<span class="string">"Water Bucket (Filled)"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"price"</span>=&gt;<span class="number">100.27</span>, <span class="string">"quantity"</span>=&gt;<span class="number">1</span>, <span class="string">"part_no"</span>=&gt;<span class="string">"E1628"</span>, <span class="string">"descrip"</span>=&gt;<span class="string">"High Heeled /"</span>Ruby/<span class="string">" Slippers"</span>&#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"bill-to"</span>=&gt;&#123;<span class="string">"city"</span>=&gt;<span class="string">"East Westville"</span>, <span class="string">"street"</span>=&gt;<span class="string">"123 Tornado Alley/nSuite 16/n"</span>, <span class="string">"state"</span>=&gt;<span class="string">"KA"</span>&#125;,</span><br><span class="line">  <span class="string">"specialDelivery"</span>=&gt;<span class="string">"Follow the Yellow Brick Road to the Emerald City. Pay no attention to the  man behind the curtain."</span>,</span><br><span class="line">  <span class="string">"date"</span>=&gt;#&lt;Date: 4908637/2,0,2299161&gt;,</span><br><span class="line">  <span class="string">"ship-to"</span>=&gt;&#123;<span class="string">"city"</span>=&gt;<span class="string">"East Westville"</span>, <span class="string">"street"</span>=&gt;<span class="string">"123 Tornado Alley/nSuite 16/n"</span>, <span class="string">"state"</span>=&gt;<span class="string">"KA"</span>&#125;,</span><br><span class="line">  <span class="string">"customer"</span>=&gt;&#123;<span class="string">"given"</span>=&gt;<span class="string">"Dorothy"</span>, <span class="string">"family"</span>=&gt;<span class="string">"Gale"</span>&#125;,</span><br><span class="line">  <span class="string">"logEvent"</span>=&gt;<span class="string">"Purchase Invoice"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="YAML和JSON"><a href="#YAML和JSON" class="headerlink" title="YAML和JSON"></a>YAML和JSON</h2><p>注：近来火热的JSON可以看作是（几乎是）YAML的一个子集，一般说来，YAML的解析器都可以解析JSON文档。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ruby/" rel="tag"># Ruby</a>
+          
+            <a href="/tags/YAML/" rel="tag"># YAML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/Rails中的参数（params）/" rel="next" title="Rails中的参数">
+                <i class="fa fa-chevron-left"></i> Rails中的参数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/05/使用JRuby链接Oracle数据库/" rel="prev" title="使用JRuby链接Oracle数据库">
+                使用JRuby链接Oracle数据库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">VignetteApril</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby中的YAML"><span class="nav-number">1.</span> <span class="nav-text">Ruby中的YAML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ruby和YAML的关系"><span class="nav-number">1.1.</span> <span class="nav-text">Ruby和YAML的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">1.2.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希"><span class="nav-number">1.3.</span> <span class="nav-text">哈希</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和其他基本类型"><span class="nav-number">1.4.</span> <span class="nav-text">字符串和其他基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串块"><span class="nav-number">1.5.</span> <span class="nav-text">字符串块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YAML和JSON"><span class="nav-number">1.6.</span> <span class="nav-text">YAML和JSON</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VignetteApril</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
