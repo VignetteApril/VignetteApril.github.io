@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Rails,Action Mailer," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容 一、配置邮件的发送方式电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如下所示123Project::Application.configure do  # 填写相关邮件的">
+<meta name="keywords" content="Rails,Action Mailer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rails中如何使用Action Mailer">
+<meta property="og:url" content="http://yoursite.com/2017/04/06/Rails中如何使用Action Mailer/index.html">
+<meta property="og:site_name" content="VignetteApril">
+<meta property="og:description" content="Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容 一、配置邮件的发送方式电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如下所示123Project::Application.configure do  # 填写相关邮件的">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-26T08:58:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rails中如何使用Action Mailer">
+<meta name="twitter:description" content="Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容 一、配置邮件的发送方式电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如下所示123Project::Application.configure do  # 填写相关邮件的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/06/Rails中如何使用Action Mailer/"/>
+
+
+
+
+
+  <title>Rails中如何使用Action Mailer | VignetteApril</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VignetteApril</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/06/Rails中如何使用Action Mailer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="VignetteApril">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VignetteApril">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Rails中如何使用Action Mailer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-06T00:00:00+08:00">
+                2017-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容</p>
+<h2 id="一、配置邮件的发送方式"><a href="#一、配置邮件的发送方式" class="headerlink" title="一、配置邮件的发送方式"></a>一、配置邮件的发送方式</h2><p>电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如下所示<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 填写相关邮件的配置即可</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>如果想在开发、测试和生产环境中使用相同的配置，可以把配置添加到config目录下的environment.rb文件中；否则，可以把不同环境的配置添加到config/environments目录下的不同配置文件中。</p>
+<p>下面来看Project::Application.configure代码块中都要填写哪些内容，和意义<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># action_mailer_delivery_method 这个属性是设置发送邮件的方式</span></span><br><span class="line">  <span class="comment"># :smtp 该选项是开发环境默认的配置，也就是开发环境是默认允许程序发送邮件的，如果想禁止开发环境发送邮件可以在config/enviroments目录下的development.rb文件添加 配置选项为 :test的Project::Application.configure代码块</span></span><br><span class="line">  <span class="comment"># :sendmail 该选项其实是将电子邮件的发送工作委托给了本地系统的sendmail程序，并假定该程序在/usr/bin目录下。由于不同的操作系统sendmail的位置不尽相同，所以该选项的可移植性并不高，所以不建议使用。</span></span><br><span class="line">  <span class="comment"># :test 测试环境使用，当使用该选项是电子邮件并不会真正的发送，而是添加到了一个数组中去，可以通过ActionMailer::Base.deliveries属性访问；该选项也是测试环境邮件的默认选项。</span></span><br><span class="line">  config.action_mailer_delivery_method = <span class="symbol">:smtp</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>下面我们需要着重说一下:smtp选项：<br>使用默认的:smtp选项是为了获得更好的可移植性。为了使用该选项我们还需要提供一些配置，告诉ActionMailer在哪查找SMTP服务器，以及如何处理需要发送的电子邮件。SMTP服务器既可以是运行该Web的应用的服务器，也可以是独立的服务器。<br>下面我展示下我的163邮箱的SMTP配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  config.action_mailer_delivery_method = <span class="symbol">:smtp</span></span><br><span class="line"></span><br><span class="line">  config.action_mailer.smtp_settings = &#123;</span><br><span class="line">    <span class="symbol">address:</span> <span class="string">"smtp.163.com"</span>,</span><br><span class="line">    <span class="symbol">port:</span> <span class="number">465</span>,</span><br><span class="line">    <span class="symbol">domain:</span> <span class="string">"www.163.com"</span>,</span><br><span class="line">    <span class="symbol">authentication:</span> <span class="string">"plain"</span>,</span><br><span class="line">    <span class="symbol">user_name:</span> <span class="string">"1360****771"</span>,</span><br><span class="line">    <span class="symbol">password:</span> <span class="string">"*********"</span>,</span><br><span class="line">    <span class="symbol">enable_starttls_auto:</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、发送邮件"><a href="#二、发送邮件" class="headerlink" title="二、发送邮件"></a>二、发送邮件</h2><p>完成配置后我们就可以编写代码来发送邮件了<br>邮件的代码程序是储存在app/mailers目录下的一个类，其中包含一个或多个方法，每个方法都一个对应的电子邮件模板。通过这些方法对应的视图，可以创建电子邮件的正文（就像是通过控制器动作创建html或xml一样）。<br>首先我们先使用rails generate命令创建一个mailer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rails_project&gt; rails generate mailer Order received shipped</span><br><span class="line">  create app/mailers/order.rb</span><br><span class="line">  invoke erb</span><br><span class="line">  create app/views/order_mailer</span><br><span class="line">  create app/views/order_mailer/received.text.erb</span><br><span class="line">  create app/views/order_mailer/shipped.tex.erb</span><br><span class="line">  invoke test_unit</span><br><span class="line">  create <span class="built_in">test</span>/mailers/order_test.rb</span><br><span class="line">  create <span class="built_in">test</span>/mailers/previews/order_mailer_preview.rb</span><br></pre></td></tr></table></figure></p>
+<p>输入指令后我们发现Rails首先创建在app/mailers目录下创建了一个order.rb的文件，这个文件是一个名为OrderMailer类所在的文件，该类继承自Application::Mailer，这里需要注意的是OrderMailer是刚才命令自动创建的类。<br>然后Rails在app/views/下创建了order_mailer文件夹，并在该文件夹里面创建了recevied.text.erb, shipped.text.erb文件，这两个文件对应的是命令中的两个action。<br>下面我们看看OrderMailer的代码部门<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderMailer</span> &lt; ApplicationMailer</span></span><br><span class="line">  default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br><span class="line">  <span class="comment"># Subject can be set in your I18n file at config/locales/en.yml</span></span><br><span class="line">  <span class="comment"># with the following lookup:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   en.order_mailer.received.subject</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">received</span><span class="params">(order)</span></span></span><br><span class="line">    @order = order</span><br><span class="line"></span><br><span class="line">    mail <span class="symbol">to:</span> order.email, <span class="symbol">subject:</span> <span class="string">'ACG Store Order Confirmation'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Subject can be set in your I18n file at config/locales/en.yml</span></span><br><span class="line">  <span class="comment"># with the following lookup:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   en.order_mailer.shipped.subject</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">shipped</span><span class="params">(order)</span></span></span><br><span class="line">    @order = order</span><br><span class="line"></span><br><span class="line">    mail <span class="symbol">to:</span> order.email, <span class="symbol">subject:</span> <span class="string">'ACG Store Order Shipped'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>这两有两点需要讲一下</p>
+<ol>
+<li><p>mail方法</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:subject</span> - 邮件的标题</span><br><span class="line"></span><br><span class="line"><span class="symbol">:to</span> - 邮件发送的对象, 可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:from</span> - 邮件发送者自己的地址信息</span><br><span class="line"></span><br><span class="line"><span class="symbol">:cc</span> - 抄送的对象，可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:bcc</span> - 密件抄送对象, 可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:reply_to</span> - 电子邮件的回复标头</span><br><span class="line"></span><br><span class="line"><span class="symbol">:date</span> - 发送电子邮件的日期</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>default方法<br>该方法是可以设置默认的mail方法接受的参数<br>比如本例中使用了如下default设置</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br></pre></td></tr></table></figure>
+<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#51;&#x36;&#x30;&#49;&#49;&#x31;&#x35;&#55;&#x37;&#49;&#x40;&#x31;&#x36;&#x33;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#49;&#51;&#x36;&#x30;&#49;&#49;&#x31;&#x35;&#55;&#x37;&#49;&#x40;&#x31;&#x36;&#x33;&#46;&#99;&#x6f;&#109;</a></em><br>当然你也可以设置其他的参数默认值</p>
+</li>
+</ol>
+<p>至此我们的controller已经简单的设置好了，下面我们再去看看ActionMailer的view层。在刚才输入指令生成邮件程序的时候，我们看到rails创建了两个后缀为text.erb的文件，这两个就是电子邮件的view层文件，它从controller里获取到数据，然后将数据展示在界面上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create app/views/order_mailer/received.text.erb</span><br><span class="line">create app/views/order_mailer/shipped.tex.erb</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看看app/views/order_mailer/received.text.erb的内部情况<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Dear &lt;%=<span class="ruby"> @order.name </span>%&gt;</span><br><span class="line"></span><br><span class="line">Thank you for your recent order from the ACG store.</span><br><span class="line"></span><br><span class="line">you ordered the following items:</span><br><span class="line"></span><br><span class="line">&lt;%=<span class="ruby"> render @order.line_items </span>-%&gt;</span><br><span class="line"></span><br><span class="line">we will send you a separate e-mail when you order ships.</span><br></pre></td></tr></table></figure></p>
+<p>完成电子邮件模板的设置和邮件程序动作的定义后，就可以在普通的控制器中通过他们来创建和发送电子邮件了<br>比如当订单创建后我们需要发送邮件告诉顾客，订单已经生效<br>rails_project/app/controllers/orders_controller.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    @order = Order.new(order_params)</span><br><span class="line">    @order.add_line_items_from_cart(@cart)</span><br><span class="line"></span><br><span class="line">    respond_to <span class="keyword">do</span> <span class="params">|format|</span></span><br><span class="line">      <span class="keyword">if</span> @order.save</span><br><span class="line">        Cart.destroy(session[<span class="symbol">:cart_id</span>])</span><br><span class="line">        session[<span class="symbol">:cart_id</span>] = <span class="literal">nil</span></span><br><span class="line">        <span class="comment"># 该行即为发送邮件的代码，可以看出我们使用了OrderMailer类，并调用了类方法received，并传入了参数<span class="doctag">@order</span>，并再在这之上调用了deliver_later方法</span></span><br><span class="line">        <span class="comment"># deliver_later: 使用Active Job将邮件发送的任务加入到队列中去</span></span><br><span class="line">        <span class="comment"># deliver_now: 立刻发送邮件</span></span><br><span class="line">    -&gt;  OrderMailer.received(@order).deliver_later</span><br><span class="line">        format.html &#123; redirect_to store_index_url(<span class="symbol">locale:</span> I18n.locale),<span class="symbol">notice:</span> I18n.t(<span class="string">'.thanks'</span>) &#125;</span><br><span class="line">        format.json &#123; render <span class="symbol">:show</span>, <span class="symbol">status:</span> <span class="symbol">:created</span>, <span class="symbol">location:</span> @order &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        format.html &#123; render <span class="symbol">:new</span> &#125;</span><br><span class="line">        format.json &#123; render <span class="symbol">json:</span> @order.errors, <span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span> &#125;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>至此邮件应该已经发送出去了，大家可以自己测一测</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Rails/" rel="tag"># Rails</a>
+          
+            <a href="/tags/Action-Mailer/" rel="tag"># Action Mailer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/06/Rails中如何使用Action Cable/" rel="next" title="Rails中如何使用Action Cable">
+                <i class="fa fa-chevron-left"></i> Rails中如何使用Action Cable
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/05/网易导航条渐变效果核心代码/" rel="prev" title="网易导航条渐变效果核心代码">
+                网易导航条渐变效果核心代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">VignetteApril</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、配置邮件的发送方式"><span class="nav-number">1.</span> <span class="nav-text">一、配置邮件的发送方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、发送邮件"><span class="nav-number">2.</span> <span class="nav-text">二、发送邮件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VignetteApril</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
