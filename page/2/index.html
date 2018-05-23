@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="导航条," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,13 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940// 滚动中调用- (void)scrollViewDidScroll:(UIScrollView *)scrollView&amp;#123;    CGFloat offsetX = scrollView.contentOffset.x;// 取出左右两个but">
-<meta name="keywords" content="导航条">
-<meta property="og:type" content="article">
-<meta property="og:title" content="网易导航条渐变效果核心代码">
-<meta property="og:url" content="http://yoursite.com/2015/06/05/网易导航条渐变效果核心代码/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VignetteApril">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="VignetteApril">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940// 滚动中调用- (void)scrollViewDidScroll:(UIScrollView *)scrollView&amp;#123;    CGFloat offsetX = scrollView.contentOffset.x;// 取出左右两个but">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-26T09:47:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网易导航条渐变效果核心代码">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940// 滚动中调用- (void)scrollViewDidScroll:(UIScrollView *)scrollView&amp;#123;    CGFloat offsetX = scrollView.contentOffset.x;// 取出左右两个but">
+<meta name="twitter:title" content="VignetteApril">
 
 
 
@@ -120,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/06/05/网易导航条渐变效果核心代码/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>网易导航条渐变效果核心代码 | VignetteApril</title>
+  <title>VignetteApril</title>
   
 
 
@@ -145,7 +140,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,9 +214,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -250,7 +246,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网易导航条渐变效果核心代码</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/05/网易导航条渐变效果核心代码/" itemprop="url">网易导航条渐变效果核心代码</a></h1>
         
 
         <div class="post-meta">
@@ -322,8 +320,12 @@
       
 
       
-        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 滚动中调用</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> offsetX = scrollView.contentOffset.x;</span><br><span class="line"><span class="comment">// 取出左右两个button的index</span></span><br><span class="line">    <span class="built_in">NSInteger</span> leftIndex = offsetX / ZHJScreenW;</span><br><span class="line">    <span class="built_in">NSInteger</span> rightIndex = leftIndex + <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 取出左边的button</span></span><br><span class="line">    <span class="built_in">UIButton</span> *leftButton = <span class="keyword">self</span>.buttons[leftIndex];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取出右边的button，考虑到在最右边的时候不用再滑动了，所以要判断下</span></span><br><span class="line">    <span class="built_in">UIButton</span> *rightButton = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (rightIndex &lt; <span class="keyword">self</span>.buttons.count) &#123;</span><br><span class="line">        rightButton = <span class="keyword">self</span>.buttons[rightIndex];</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="comment">// 取出左边的缩放值</span></span><br><span class="line">    <span class="built_in">CGFloat</span> scaleR = offsetX / ZHJScreenW - leftIndex;</span><br><span class="line"> <span class="comment">// 取出右边的缩放值</span></span><br><span class="line">    <span class="built_in">CGFloat</span> scaleL = <span class="number">1</span> - scaleR;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// maxTitleScale ＝ 1.3 是最大缩放大小</span></span><br><span class="line">    <span class="built_in">CGFloat</span> transScale = maxTitleScale - <span class="number">1</span>;</span><br><span class="line">    leftButton.transform = <span class="built_in">CGAffineTransformMakeScale</span>(scaleL * transScale + <span class="number">1</span>, scaleL * transScale + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    rightButton.transform = <span class="built_in">CGAffineTransformMakeScale</span>(scaleR * transScale + <span class="number">1</span>, scaleR * transScale + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用rgb来实现颜色的渐变</span></span><br><span class="line">    <span class="built_in">UIColor</span> *rightColor = [<span class="built_in">UIColor</span> colorWithRed:scaleR green:scaleR blue:scaleR alpha:<span class="number">1</span>];</span><br><span class="line">    <span class="built_in">UIColor</span> *leftColor = [<span class="built_in">UIColor</span> colorWithRed:scaleL green:scaleL blue:scaleL alpha:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    [leftButton setTitleColor:leftColor forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [rightButton setTitleColor:rightColor forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置指示器的位置</span></span><br><span class="line">    <span class="comment">// 算出button的宽度</span></span><br><span class="line">    <span class="built_in">CGFloat</span> buttonW = (<span class="keyword">self</span>.view.width - <span class="number">100</span>) / <span class="number">3.0</span>;</span><br><span class="line">    <span class="comment">//  设置动画</span></span><br><span class="line">    <span class="keyword">self</span>.indicator.transform = <span class="built_in">CGAffineTransformMakeTranslation</span>(buttonW * (offsetX / ZHJScreenW), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          
+            <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 滚动中调用</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> offsetX = scrollView.contentOffset.x;</span><br><span class="line"><span class="comment">// 取出左右两个button的index</span></span><br><span class="line">    <span class="built_in">NSInteger</span> leftIndex = offsetX / ZHJScreenW;</span><br><span class="line">    <span class="built_in">NSInteger</span> rightIndex = leftIndex + <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 取出左边的button</span></span><br><span class="line">    <span class="built_in">UIButton</span> *leftButton = <span class="keyword">self</span>.buttons[leftIndex];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取出右边的button，考虑到在最右边的时候不用再滑动了，所以要判断下</span></span><br><span class="line">    <span class="built_in">UIButton</span> *rightButton = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (rightIndex &lt; <span class="keyword">self</span>.buttons.count) &#123;</span><br><span class="line">        rightButton = <span class="keyword">self</span>.buttons[rightIndex];</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="comment">// 取出左边的缩放值</span></span><br><span class="line">    <span class="built_in">CGFloat</span> scaleR = offsetX / ZHJScreenW - leftIndex;</span><br><span class="line"> <span class="comment">// 取出右边的缩放值</span></span><br><span class="line">    <span class="built_in">CGFloat</span> scaleL = <span class="number">1</span> - scaleR;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// maxTitleScale ＝ 1.3 是最大缩放大小</span></span><br><span class="line">    <span class="built_in">CGFloat</span> transScale = maxTitleScale - <span class="number">1</span>;</span><br><span class="line">    leftButton.transform = <span class="built_in">CGAffineTransformMakeScale</span>(scaleL * transScale + <span class="number">1</span>, scaleL * transScale + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    rightButton.transform = <span class="built_in">CGAffineTransformMakeScale</span>(scaleR * transScale + <span class="number">1</span>, scaleR * transScale + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用rgb来实现颜色的渐变</span></span><br><span class="line">    <span class="built_in">UIColor</span> *rightColor = [<span class="built_in">UIColor</span> colorWithRed:scaleR green:scaleR blue:scaleR alpha:<span class="number">1</span>];</span><br><span class="line">    <span class="built_in">UIColor</span> *leftColor = [<span class="built_in">UIColor</span> colorWithRed:scaleL green:scaleL blue:scaleL alpha:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    [leftButton setTitleColor:leftColor forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [rightButton setTitleColor:rightColor forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置指示器的位置</span></span><br><span class="line">    <span class="comment">// 算出button的宽度</span></span><br><span class="line">    <span class="built_in">CGFloat</span> buttonW = (<span class="keyword">self</span>.view.width - <span class="number">100</span>) / <span class="number">3.0</span>;</span><br><span class="line">    <span class="comment">//  设置动画</span></span><br><span class="line">    <span class="keyword">self</span>.indicator.transform = <span class="built_in">CGAffineTransformMakeTranslation</span>(buttonW * (offsetX / ZHJScreenW), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
     
@@ -338,36 +340,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/导航条/" rel="tag"># 导航条</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/06/离线环境下配置Ruby环境/" rel="prev" title="离线状态下配置Ruby环境">
-                离线状态下配置Ruby环境 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -377,11 +357,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -389,10 +372,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -607,10 +586,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

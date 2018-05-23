@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="">
+<html class="theme-next muse use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -183,26 +183,6 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
           </a>
         </li>
       
@@ -342,16 +322,14 @@
       
         
           
-          AcitiveRecord是Rails提供的对象关系映射，是Rails中负责实现应用模型的部分。本例我们通过一个类讲述下ActiveRecord的一些基本用法
-我们先通过命令行生成一个机遇ActiveRecord的模型12# 这里我使用rails的generate命令生成了User模型并给它指定了n
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/16/Rails使用ActiveRecord总结/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>AcitiveRecord是Rails提供的对象关系映射，是Rails中负责实现应用模型的部分。<br>本例我们通过一个类讲述下ActiveRecord的一些基本用法</p>
+<p>我们先通过命令行生成一个机遇ActiveRecord的模型<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里我使用rails的generate命令生成了User模型并给它指定了name和age字段</span></span><br><span class="line">rails g model User name age:int</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的一点是，我的name字段并没有指定字段类型，这是因为Rails的默认字段类型设置的是string。<br>这条命令生成了一个User类，这个类继承自AcitveRecord::Base类，还生成了一个migration保存在db/migrations里面</p>
+<p>执行完上述命令后，就可以执行迁移命令，该命令是将刚才创建的模型对应的在数据库创建好表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails db:migrate</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意Rails5之前都是使用rake db:migrate，Rails5之后统一改为rails db:migrate<br>执行完迁移命令后，Rails会在数据库中生成一个users的表，可以看出users是user的复数形式，Rails会智能的匹配大多数的单复数形式，但是也会偶尔遇到无法正确处理的情况，如果遇到这种情况，可以修改磁性变化文件，让Rails知道某些英文单词的特殊性<br>rails_project/config/initializers/inflections.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ActiveSupport::Inflector.inflections <span class="keyword">do</span> <span class="params">|inflect|</span></span><br><span class="line">  inflect.irregular <span class="string">'tax'</span>, <span class="string">'taxes'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中可以看到，我们指定了tax的复数为taxes，这样我们在使用迁移命令的时候，名为Tax的模型类就会在数据库创建一个名为taxes的数据表</p>
+
+          
         
       
     </div>
@@ -491,16 +469,17 @@
       
         
           
-          使用背景：老板想抓取搜房网的所有小区的bbs地址和对应的小区名字，最后生成一个excel文件。技术选用：使用Ruby的gem nokogiri和spreadsheet
-nokogiri相关介绍：nokogiri是一个html、xml、sax类型数据的读取和解析器，nokogiri可以通过Xpath和
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/20/Ruby中如何使用nokogiri抓取页面中的数据/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>使用背景：老板想抓取搜房网的所有小区的bbs地址和对应的小区名字，最后生成一个excel文件。<br>技术选用：使用Ruby的gem nokogiri和spreadsheet</p>
+<p>nokogiri相关介绍：nokogiri是一个html、xml、sax类型数据的读取和解析器，nokogiri可以通过Xpath和CSS3选择器去在文档中查找数据</p>
+<p>spreadsheet相关介绍：Spreadsheet是用来读写excel文件的工具</p>
+<h2 id="一、使用nokogiri抓取目标网页的数据"><a href="#一、使用nokogiri抓取目标网页的数据" class="headerlink" title="一、使用nokogiri抓取目标网页的数据"></a>一、使用nokogiri抓取目标网页的数据</h2><p>首选我们想把需要用的gem包引入进来，open-uri是和nokogiri紧密结合的下面会用到<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'rubygems'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'nokogiri'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'open-uri'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'spreadsheet'</span></span><br></pre></td></tr></table></figure></p>
+<p>然后通过nokogiri获取网页的全部数据，其中open方法是open-uri中得到的<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要抓取网页的URL</span></span><br><span class="line">uri = <span class="string">"http://bbs.fang.com/forumlist.php?_m=search_forum_list"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Nokogiri抓取网页的内容，编码格式使用gbk</span></span><br><span class="line">doc = Nokogiri::HTML(open(uri), <span class="literal">nil</span>, <span class="string">"gbk"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>然后通过nokogiri的css选择器的查询方式查找对应的数据，可以看到我们调用了nokogiri对象的css查找方法。然后我们通过nokogiri node对象对应的方法的到我们想要的数据。<br>nokogiri node对象：我们通过doc.css方法匹配到了很多数据，每一条数据都是一个nokogiri node对象，而doc.css返回的真个结果集是一个nokogiri node对象数组，本例中我们用到了node.children方法，获取该节点下所有的子节点的信息<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在网页内容里通过css进行搜索</span></span><br><span class="line">bbs_data = doc.css(<span class="string">"dd ul li"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个数组用于保存数据</span></span><br><span class="line">bbs_arr = []</span><br><span class="line"></span><br><span class="line">bbs_data.each <span class="keyword">do</span> <span class="params">|bbs|</span></span><br><span class="line"><span class="comment"># 通过nokogiri node的一些方法获取数据</span></span><br><span class="line">bbs_arr &lt;&lt; [<span class="string">"<span class="subst">#&#123;bbs.children[<span class="number">1</span>]&#125;</span>"</span>, <span class="string">"<span class="subst">#&#123;bbs.children[<span class="number">0</span>].attribute(<span class="string">'href'</span>).value&#125;</span>"</span>]</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、使用spreadsheet生成excel文件"><a href="#二、使用spreadsheet生成excel文件" class="headerlink" title="二、使用spreadsheet生成excel文件"></a>二、使用spreadsheet生成excel文件</h2><p>至此我们得到了一个包含我们想要信息的数组：[ [‘xxx小区’,’<a href="http://www.xxx.com&#39;]" target="_blank" rel="noopener">www.xxx.com&#39;]</a> …]<br>注意：该格式是根据spreadsheet所需要的格式生成的。<br>得到数据之后我通过spreadsheet将数据写入到excel文件中<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过Spreadsheet将获取的数据写入到excel格式的文件中，并保存在本地</span></span><br><span class="line">Spreadsheet.client_encoding = <span class="string">'GBK'</span></span><br><span class="line">book = Spreadsheet::Workbook.new</span><br><span class="line">sheet1 = book.create_worksheet</span><br><span class="line">sheet1.row(<span class="number">0</span>).concat <span class="string">%w&#123;小区名称 论坛地址&#125;</span></span><br><span class="line">bbs_arr.each_with_index <span class="keyword">do</span> <span class="params">|item, index|</span></span><br><span class="line">sheet1.update_row index + <span class="number">1</span>, item[<span class="number">0</span>], item[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">book.write <span class="string">'/Applications/workSpace/sheet1.xls'</span></span><br></pre></td></tr></table></figure></p>
+<p>至此我们就生成了一个名为sheet1.xls文件里面包含了老板想要的所有信息</p>
+<p>下面是整体的源码，可以直接在你本地运行的，运行前你需要修改下生成excel文件的地址.<br>注意：编码的问题，这里我是用的是GBK的编码格式，如果你在测试的时候看到终端都是乱码，那是因为终端的编码格式是UTF-8的<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding : utf-8</span></span><br><span class="line"><span class="comment"># doc.encoding: gbk</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'rubygems'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'nokogiri'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'open-uri'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'spreadsheet'</span></span><br><span class="line"></span><br><span class="line">puts <span class="string">"get data from http://bbs.fang.com/forumlist.php?_m=search_forum_list"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要抓取网页的URL</span></span><br><span class="line">uri = <span class="string">"http://bbs.fang.com/forumlist.php?_m=search_forum_list"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Nokogiri抓取网页的内容，编码格式使用gbk</span></span><br><span class="line">doc = Nokogiri::HTML(open(uri), <span class="literal">nil</span>, <span class="string">"gbk"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在网页内容里通过css进行搜索</span></span><br><span class="line">bbs_data = doc.css(<span class="string">"dd ul li"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个数组用于保存数据</span></span><br><span class="line">bbs_arr = []</span><br><span class="line"></span><br><span class="line">bbs_data.each <span class="keyword">do</span> <span class="params">|bbs|</span></span><br><span class="line"><span class="comment"># 通过nokogiri node的一些方法获取数据</span></span><br><span class="line">bbs_arr &lt;&lt; [<span class="string">"<span class="subst">#&#123;bbs.children[<span class="number">1</span>]&#125;</span>"</span>, <span class="string">"<span class="subst">#&#123;bbs.children[<span class="number">0</span>].attribute(<span class="string">'href'</span>).value&#125;</span>"</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过Spreadsheet将获取的数据写入到excel格式的文件中，并保存在本地</span></span><br><span class="line">Spreadsheet.client_encoding = <span class="string">'GBK'</span></span><br><span class="line">book = Spreadsheet::Workbook.new</span><br><span class="line">sheet1 = book.create_worksheet</span><br><span class="line">sheet1.row(<span class="number">0</span>).concat <span class="string">%w&#123;小区名称 论坛地址&#125;</span></span><br><span class="line">bbs_arr.each_with_index <span class="keyword">do</span> <span class="params">|item, index|</span></span><br><span class="line">sheet1.update_row index + <span class="number">1</span>, item[<span class="number">0</span>], item[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">book.write <span class="string">'/Applications/workSpace/sheet1.xls'</span></span><br></pre></td></tr></table></figure></p>
+
+          
         
       
     </div>
@@ -640,16 +619,10 @@ nokogiri相关介绍：nokogiri是一个html、xml、sax类型数据的读取和
       
         
           
-          Rails对运行时的布局有特定的假设，而且为了这一布局提供了应用和脚手架生成器使用rails new my_rails_project命令之后, 会生成如下的rails目录1rails my_rails_project
-my_rails_project/  app/        -&gt; 用来存
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/07/Rails中项目的目录结构/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>Rails对运行时的布局有特定的假设，而且为了这一布局提供了应用和脚手架生成器<br>使用rails new my_rails_project命令之后, 会生成如下的rails目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails my_rails_project</span><br></pre></td></tr></table></figure></p>
+<p>my_rails_project/<br>  app/        -&gt; 用来存放模型（model）控制器（controller）和视图（view）<br>  bin/        -&gt; 用来存放包装的脚本<br>  config/     -&gt; 用来存放配置文件和数据连接的配置文件等等<br>  db/         -&gt; 用来存放数据库的迁移文件<br>  lib/        -&gt; 用来存放共享的代码<br>  log/        -&gt; 用来存放应用生成的日志文件(development.log, production.log, test.log)<br>  public/     -&gt; 用来存放公开可访问的文件。应用也是从这里运行的<br>  test/       -&gt; 用来存放测试代码<br>  tmp/        -&gt; 用来存放运行时的临时文件<br>  vendor/     -&gt; 用来存放导入的代码（gem的cache文件夹也在里面）<br>  Gemfile     -&gt; gem的依赖情况<br>  Rakefile    -&gt; 构建脚本<br>  README.md   -&gt; 系统的说明情况<br>  config.ru   -&gt; Rack服务器配置</p>
+
+          
         
       
     </div>
@@ -789,16 +762,178 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
-          Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容
-一、配置邮件的发送方式电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/06/Rails中如何使用Action Mailer/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>Action Mailer提供给编程人员发送给客户邮件的全部功能，其中包含三个步骤1、配置邮件的发送方式 2、发送邮件 3、电子邮件的内容</p>
+<h2 id="一、配置邮件的发送方式"><a href="#一、配置邮件的发送方式" class="headerlink" title="一、配置邮件的发送方式"></a>一、配置邮件的发送方式</h2><p>电子邮件的配置是Rails应用的环境配置的组成部分，具体是通过Project::Application.configure代码块实现的，如下所示<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 填写相关邮件的配置即可</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>如果想在开发、测试和生产环境中使用相同的配置，可以把配置添加到config目录下的environment.rb文件中；否则，可以把不同环境的配置添加到config/environments目录下的不同配置文件中。</p>
+<p>下面来看Project::Application.configure代码块中都要填写哪些内容，和意义<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># action_mailer_delivery_method 这个属性是设置发送邮件的方式</span></span><br><span class="line">  <span class="comment"># :smtp 该选项是开发环境默认的配置，也就是开发环境是默认允许程序发送邮件的，如果想禁止开发环境发送邮件可以在config/enviroments目录下的development.rb文件添加 配置选项为 :test的Project::Application.configure代码块</span></span><br><span class="line">  <span class="comment"># :sendmail 该选项其实是将电子邮件的发送工作委托给了本地系统的sendmail程序，并假定该程序在/usr/bin目录下。由于不同的操作系统sendmail的位置不尽相同，所以该选项的可移植性并不高，所以不建议使用。</span></span><br><span class="line">  <span class="comment"># :test 测试环境使用，当使用该选项是电子邮件并不会真正的发送，而是添加到了一个数组中去，可以通过ActionMailer::Base.deliveries属性访问；该选项也是测试环境邮件的默认选项。</span></span><br><span class="line">  config.action_mailer_delivery_method = <span class="symbol">:smtp</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>下面我们需要着重说一下:smtp选项：<br>使用默认的:smtp选项是为了获得更好的可移植性。为了使用该选项我们还需要提供一些配置，告诉ActionMailer在哪查找SMTP服务器，以及如何处理需要发送的电子邮件。SMTP服务器既可以是运行该Web的应用的服务器，也可以是独立的服务器。<br>下面我展示下我的163邮箱的SMTP配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Project::Application.configure <span class="keyword">do</span></span><br><span class="line">  config.action_mailer_delivery_method = <span class="symbol">:smtp</span></span><br><span class="line"></span><br><span class="line">  config.action_mailer.smtp_settings = &#123;</span><br><span class="line">    <span class="symbol">address:</span> <span class="string">"smtp.163.com"</span>,</span><br><span class="line">    <span class="symbol">port:</span> <span class="number">465</span>,</span><br><span class="line">    <span class="symbol">domain:</span> <span class="string">"www.163.com"</span>,</span><br><span class="line">    <span class="symbol">authentication:</span> <span class="string">"plain"</span>,</span><br><span class="line">    <span class="symbol">user_name:</span> <span class="string">"1360****771"</span>,</span><br><span class="line">    <span class="symbol">password:</span> <span class="string">"*********"</span>,</span><br><span class="line">    <span class="symbol">enable_starttls_auto:</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、发送邮件"><a href="#二、发送邮件" class="headerlink" title="二、发送邮件"></a>二、发送邮件</h2><p>完成配置后我们就可以编写代码来发送邮件了<br>邮件的代码程序是储存在app/mailers目录下的一个类，其中包含一个或多个方法，每个方法都一个对应的电子邮件模板。通过这些方法对应的视图，可以创建电子邮件的正文（就像是通过控制器动作创建html或xml一样）。<br>首先我们先使用rails generate命令创建一个mailer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rails_project&gt; rails generate mailer Order received shipped</span><br><span class="line">  create app/mailers/order.rb</span><br><span class="line">  invoke erb</span><br><span class="line">  create app/views/order_mailer</span><br><span class="line">  create app/views/order_mailer/received.text.erb</span><br><span class="line">  create app/views/order_mailer/shipped.tex.erb</span><br><span class="line">  invoke test_unit</span><br><span class="line">  create <span class="built_in">test</span>/mailers/order_test.rb</span><br><span class="line">  create <span class="built_in">test</span>/mailers/previews/order_mailer_preview.rb</span><br></pre></td></tr></table></figure></p>
+<p>输入指令后我们发现Rails首先创建在app/mailers目录下创建了一个order.rb的文件，这个文件是一个名为OrderMailer类所在的文件，该类继承自Application::Mailer，这里需要注意的是OrderMailer是刚才命令自动创建的类。<br>然后Rails在app/views/下创建了order_mailer文件夹，并在该文件夹里面创建了recevied.text.erb, shipped.text.erb文件，这两个文件对应的是命令中的两个action。<br>下面我们看看OrderMailer的代码部门<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderMailer</span> &lt; ApplicationMailer</span></span><br><span class="line">  default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br><span class="line">  <span class="comment"># Subject can be set in your I18n file at config/locales/en.yml</span></span><br><span class="line">  <span class="comment"># with the following lookup:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   en.order_mailer.received.subject</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">received</span><span class="params">(order)</span></span></span><br><span class="line">    @order = order</span><br><span class="line"></span><br><span class="line">    mail <span class="symbol">to:</span> order.email, <span class="symbol">subject:</span> <span class="string">'ACG Store Order Confirmation'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Subject can be set in your I18n file at config/locales/en.yml</span></span><br><span class="line">  <span class="comment"># with the following lookup:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   en.order_mailer.shipped.subject</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">shipped</span><span class="params">(order)</span></span></span><br><span class="line">    @order = order</span><br><span class="line"></span><br><span class="line">    mail <span class="symbol">to:</span> order.email, <span class="symbol">subject:</span> <span class="string">'ACG Store Order Shipped'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>这两有两点需要讲一下</p>
+<ol>
+<li><p>mail方法</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:subject</span> - 邮件的标题</span><br><span class="line"></span><br><span class="line"><span class="symbol">:to</span> - 邮件发送的对象, 可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:from</span> - 邮件发送者自己的地址信息</span><br><span class="line"></span><br><span class="line"><span class="symbol">:cc</span> - 抄送的对象，可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:bcc</span> - 密件抄送对象, 可以是字符串类型的邮件地址信息, 或者是一个地址信息数组</span><br><span class="line"></span><br><span class="line"><span class="symbol">:reply_to</span> - 电子邮件的回复标头</span><br><span class="line"></span><br><span class="line"><span class="symbol">:date</span> - 发送电子邮件的日期</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>default方法<br>该方法是可以设置默认的mail方法接受的参数<br>比如本例中使用了如下default设置</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br></pre></td></tr></table></figure>
+<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#51;&#x36;&#x30;&#49;&#49;&#49;&#x35;&#x37;&#55;&#49;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#49;&#51;&#x36;&#x30;&#49;&#49;&#49;&#x35;&#x37;&#55;&#49;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;</a></em><br>当然你也可以设置其他的参数默认值</p>
+</li>
+</ol>
+<p>至此我们的controller已经简单的设置好了，下面我们再去看看ActionMailer的view层。在刚才输入指令生成邮件程序的时候，我们看到rails创建了两个后缀为text.erb的文件，这两个就是电子邮件的view层文件，它从controller里获取到数据，然后将数据展示在界面上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create app/views/order_mailer/received.text.erb</span><br><span class="line">create app/views/order_mailer/shipped.tex.erb</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看看app/views/order_mailer/received.text.erb的内部情况<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Dear &lt;%=<span class="ruby"> @order.name </span>%&gt;</span><br><span class="line"></span><br><span class="line">Thank you for your recent order from the ACG store.</span><br><span class="line"></span><br><span class="line">you ordered the following items:</span><br><span class="line"></span><br><span class="line">&lt;%=<span class="ruby"> render @order.line_items </span>-%&gt;</span><br><span class="line"></span><br><span class="line">we will send you a separate e-mail when you order ships.</span><br></pre></td></tr></table></figure></p>
+<p>完成电子邮件模板的设置和邮件程序动作的定义后，就可以在普通的控制器中通过他们来创建和发送电子邮件了<br>比如当订单创建后我们需要发送邮件告诉顾客，订单已经生效<br>rails_project/app/controllers/orders_controller.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    @order = Order.new(order_params)</span><br><span class="line">    @order.add_line_items_from_cart(@cart)</span><br><span class="line"></span><br><span class="line">    respond_to <span class="keyword">do</span> <span class="params">|format|</span></span><br><span class="line">      <span class="keyword">if</span> @order.save</span><br><span class="line">        Cart.destroy(session[<span class="symbol">:cart_id</span>])</span><br><span class="line">        session[<span class="symbol">:cart_id</span>] = <span class="literal">nil</span></span><br><span class="line">        <span class="comment"># 该行即为发送邮件的代码，可以看出我们使用了OrderMailer类，并调用了类方法received，并传入了参数<span class="doctag">@order</span>，并再在这之上调用了deliver_later方法</span></span><br><span class="line">        <span class="comment"># deliver_later: 使用Active Job将邮件发送的任务加入到队列中去</span></span><br><span class="line">        <span class="comment"># deliver_now: 立刻发送邮件</span></span><br><span class="line">    -&gt;  OrderMailer.received(@order).deliver_later</span><br><span class="line">        format.html &#123; redirect_to store_index_url(<span class="symbol">locale:</span> I18n.locale),<span class="symbol">notice:</span> I18n.t(<span class="string">'.thanks'</span>) &#125;</span><br><span class="line">        format.json &#123; render <span class="symbol">:show</span>, <span class="symbol">status:</span> <span class="symbol">:created</span>, <span class="symbol">location:</span> @order &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        format.html &#123; render <span class="symbol">:new</span> &#125;</span><br><span class="line">        format.json &#123; render <span class="symbol">json:</span> @order.errors, <span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span> &#125;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>至此邮件应该已经发送出去了，大家可以自己测一测</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/06/Rails中如何使用Active Storage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="VignetteApril">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VignetteApril">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/Rails中如何使用Active Storage/" itemprop="url">Rails中如何使用Action Cable</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T00:00:00+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。</p>
+<h2 id="一、创建频道"><a href="#一、创建频道" class="headerlink" title="一、创建频道"></a>一、创建频道</h2><h3 id="1-1-创建products-channel"><a href="#1-1-创建products-channel" class="headerlink" title="1.1 创建products channel"></a>1.1 创建products channel</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在命令行输入指令创建products channel</span></span><br><span class="line">rails_project&gt; rails generate channel products</span><br><span class="line">  create app/channels/products_channel.rb</span><br><span class="line">  identical app/assets/javascripts/cable.js</span><br><span class="line">  create  app/assets/javascripts/channels/products.coffee</span><br><span class="line"><span class="comment"># 通过返回的系统信息，我们看到rails创建了一个products_channel.rb文件和一个products.coffee文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-修改products-channel-rb"><a href="#1-2-修改products-channel-rb" class="headerlink" title="1.2 修改products_channel.rb"></a>1.2 修改products_channel.rb</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开products_channel.rb文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductsChannel</span> &lt; ApplicationCable::Channel</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span></span></span><br><span class="line">    <span class="comment"># 订阅流名为products的流，值得一提的是一个channel支持订阅多个流，目前咱们先做一个流</span></span><br><span class="line">&gt;   stream_from <span class="string">"products"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unsubcribed</span></span></span><br><span class="line">    <span class="comment"># 取消订阅做的事情</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><em>默认情况下Rails只允许从本地主机访问频道，要想多台电脑进行开发的话，必须禁止这项检查。为此，需要在config/enviroments/development.rb中加一行代码</em><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.action_cable.disable_request_forgery_protection = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、广播数据"><a href="#二、广播数据" class="headerlink" title="二、广播数据"></a>二、广播数据</h2><p>当一个product（产品）更新了之后，就需要对整个目录进行广播，当然也可以发送给部分目录，或发送所需其他的数据。不过，因为我们已经拥有了目录视图，所以就要想办法使用它。</p>
+<p>rails_project/app/controllers/products_controller.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span></span></span><br><span class="line">  response_to <span class="keyword">do</span> <span class="params">|format|</span></span><br><span class="line">    <span class="keyword">if</span> @product.update(product_params)</span><br><span class="line">      format.html &#123; redirect_to @products, <span class="symbol">notice:</span> <span class="string">'Product was Successfully updated'</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">:show</span>, <span class="symbol">status:</span> <span class="symbol">:ok</span>, <span class="symbol">location:</span> @product &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 获取更新后的所有产品数据</span></span><br><span class="line">      @products = Product.all</span><br><span class="line">      <span class="comment"># 将新的数据广播出去</span></span><br><span class="line">      <span class="comment"># 同时调用render_to_string方法，将视图渲染为字符串，并传递layout: false作为参数，这是因为我们需要的只是这个视图，而不是整个页面</span></span><br><span class="line">      <span class="comment"># 广播消息通常是由Ruby的hash结构组成，他们被转换为JSON，然后发送，最终作为JS对象来处理，这里，我们使用html作为hash里的key</span></span><br><span class="line">      <span class="comment"># 所以我们现在广播的数据应该是这样的&#123;html: '...'&#125; 省略的部分是store/index页面字符串</span></span><br><span class="line">      ActionCable.server.broadcast <span class="string">'produsts'</span>, <span class="symbol">html:</span> render_to_string(<span class="string">'store/index'</span>, <span class="symbol">layout:</span> <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      format.html &#123; render <span class="symbol">:edit</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">json:</span> @product.errors, <span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span> &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、接收数据"><a href="#三、接收数据" class="headerlink" title="三、接收数据"></a>三、接收数据</h2><p>最后一步是在客户端上接收数据，以及接收了数据之后要干什么</p>
+<p>rails_project/app/assets/javascripts/channels/products.coffee<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">App.products = App.cable.subscriptions.create <span class="string">"ProductsChannel"</span></span><br><span class="line">  <span class="symbol">connect:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听准备好时调用</span></span><br><span class="line">  <span class="symbol">disconnected:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听被终止是调用</span></span><br><span class="line">  <span class="symbol">received:</span> (data) -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当接受到数据时调用</span></span><br><span class="line">    <span class="comment"># 还记得广播数据中我们说的数据格式么（&#123;html: '...'&#125;）, Ruby通过.方法取出该hash的key(html)</span></span><br><span class="line">    <span class="comment"># 我们通过HTML元素查找，找到class 为store中的id为main的元素，并替换其中的html元素</span></span><br><span class="line">    <span class="comment"># 至此我们就完成使用ActionCable</span></span><br><span class="line">    $(<span class="string">".store #main"</span>).html(data.html)</span><br></pre></td></tr></table></figure></p>
+
+          
         
       
     </div>
@@ -938,16 +1073,16 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
-          Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。
-一、创建频道1.1 创建product
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/06/Rails中如何使用Action Cable/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。</p>
+<h2 id="一、创建频道"><a href="#一、创建频道" class="headerlink" title="一、创建频道"></a>一、创建频道</h2><h3 id="1-1-创建products-channel"><a href="#1-1-创建products-channel" class="headerlink" title="1.1 创建products channel"></a>1.1 创建products channel</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在命令行输入指令创建products channel</span></span><br><span class="line">rails_project&gt; rails generate channel products</span><br><span class="line">  create app/channels/products_channel.rb</span><br><span class="line">  identical app/assets/javascripts/cable.js</span><br><span class="line">  create  app/assets/javascripts/channels/products.coffee</span><br><span class="line"><span class="comment"># 通过返回的系统信息，我们看到rails创建了一个products_channel.rb文件和一个products.coffee文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-修改products-channel-rb"><a href="#1-2-修改products-channel-rb" class="headerlink" title="1.2 修改products_channel.rb"></a>1.2 修改products_channel.rb</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开products_channel.rb文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductsChannel</span> &lt; ApplicationCable::Channel</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span></span></span><br><span class="line">    <span class="comment"># 订阅流名为products的流，值得一提的是一个channel支持订阅多个流，目前咱们先做一个流</span></span><br><span class="line">&gt;   stream_from <span class="string">"products"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unsubcribed</span></span></span><br><span class="line">    <span class="comment"># 取消订阅做的事情</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><em>默认情况下Rails只允许从本地主机访问频道，要想多台电脑进行开发的话，必须禁止这项检查。为此，需要在config/enviroments/development.rb中加一行代码</em><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.action_cable.disable_request_forgery_protection = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、广播数据"><a href="#二、广播数据" class="headerlink" title="二、广播数据"></a>二、广播数据</h2><p>当一个product（产品）更新了之后，就需要对整个目录进行广播，当然也可以发送给部分目录，或发送所需其他的数据。不过，因为我们已经拥有了目录视图，所以就要想办法使用它。</p>
+<p>rails_project/app/controllers/products_controller.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span></span></span><br><span class="line">  response_to <span class="keyword">do</span> <span class="params">|format|</span></span><br><span class="line">    <span class="keyword">if</span> @product.update(product_params)</span><br><span class="line">      format.html &#123; redirect_to @products, <span class="symbol">notice:</span> <span class="string">'Product was Successfully updated'</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">:show</span>, <span class="symbol">status:</span> <span class="symbol">:ok</span>, <span class="symbol">location:</span> @product &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 获取更新后的所有产品数据</span></span><br><span class="line">      @products = Product.all</span><br><span class="line">      <span class="comment"># 将新的数据广播出去</span></span><br><span class="line">      <span class="comment"># 同时调用render_to_string方法，将视图渲染为字符串，并传递layout: false作为参数，这是因为我们需要的只是这个视图，而不是整个页面</span></span><br><span class="line">      <span class="comment"># 广播消息通常是由Ruby的hash结构组成，他们被转换为JSON，然后发送，最终作为JS对象来处理，这里，我们使用html作为hash里的key</span></span><br><span class="line">      <span class="comment"># 所以我们现在广播的数据应该是这样的&#123;html: '...'&#125; 省略的部分是store/index页面字符串</span></span><br><span class="line">      ActionCable.server.broadcast <span class="string">'produsts'</span>, <span class="symbol">html:</span> render_to_string(<span class="string">'store/index'</span>, <span class="symbol">layout:</span> <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      format.html &#123; render <span class="symbol">:edit</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">json:</span> @product.errors, <span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span> &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、接收数据"><a href="#三、接收数据" class="headerlink" title="三、接收数据"></a>三、接收数据</h2><p>最后一步是在客户端上接收数据，以及接收了数据之后要干什么</p>
+<p>rails_project/app/assets/javascripts/channels/products.coffee<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">App.products = App.cable.subscriptions.create <span class="string">"ProductsChannel"</span></span><br><span class="line">  <span class="symbol">connect:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听准备好时调用</span></span><br><span class="line">  <span class="symbol">disconnected:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听被终止是调用</span></span><br><span class="line">  <span class="symbol">received:</span> (data) -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当接受到数据时调用</span></span><br><span class="line">    <span class="comment"># 还记得广播数据中我们说的数据格式么（&#123;html: '...'&#125;）, Ruby通过.方法取出该hash的key(html)</span></span><br><span class="line">    <span class="comment"># 我们通过HTML元素查找，找到class 为store中的id为main的元素，并替换其中的html元素</span></span><br><span class="line">    <span class="comment"># 至此我们就完成使用ActionCable</span></span><br><span class="line">    $(<span class="string">".store #main"</span>).html(data.html)</span><br></pre></td></tr></table></figure></p>
+
+          
         
       
     </div>
@@ -1087,19 +1222,16 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
+            <ol>
+<li>下载JDK</li>
+<li>下载JDBC</li>
+<li>下载JRuby:可以使用RVM安装，然后将第二步下载好的ojdbc-x移动到/path_to_rvm/.rvm/rubies/jruby-9.0.5.0/lib目录下</li>
+<li>拷贝代码jdbc_connection.rb和test_oracle.rb，这两rb文件要放在同一个目录下，然后在终端执行 ruby test_oracle.rb就可以和oracle建立连接了</li>
+</ol>
+<h3 id="jdbc-connection-rb-代码如下"><a href="#jdbc-connection-rb-代码如下" class="headerlink" title="jdbc_connection.rb 代码如下"></a>jdbc_connection.rb 代码如下</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jdbc_connection.rb</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line">java_import <span class="string">'oracle.jdbc.OracleDriver'</span></span><br><span class="line">java_import <span class="string">'java.sql.DriverManager'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OracleConnection</span></span></span><br><span class="line"></span><br><span class="line">@conn = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize</span> <span class="params">(user, passwd, url)</span></span></span><br><span class="line">  @user = user</span><br><span class="line">  @passwd = passwd</span><br><span class="line">  @url = url</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Load driver class</span></span><br><span class="line">  oradriver = OracleDriver.new</span><br><span class="line"></span><br><span class="line">  DriverManager.registerDriver oradriver</span><br><span class="line">  @conn = DriverManager.get_connection url, user, passwd</span><br><span class="line">  @conn.auto_commit = <span class="literal">false</span></span><br><span class="line">  puts <span class="string">"链接成功"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add getters and setters for all attrributes we wish to expose</span></span><br><span class="line"><span class="keyword">attr_reader</span> <span class="symbol">:user</span>, <span class="symbol">:passwd</span>, <span class="symbol">:url</span>, <span class="symbol">:connection</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close_connection</span><span class="params">()</span></span></span><br><span class="line">  @conn.close() <span class="keyword">unless</span> @conn</span><br><span class="line">  puts <span class="string">"链接关闭"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_call</span><span class="params">(call)</span></span></span><br><span class="line">  @conn.prepare_call call</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_statement</span><span class="params">()</span></span></span><br><span class="line">  @conn.create_statement</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_statement</span><span class="params">(sql)</span></span></span><br><span class="line">  @conn.prepare_statement sql</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">commit</span><span class="params">()</span></span></span><br><span class="line">  @conn.commit</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">create</span><span class="params">(user, passwd, url)</span></span></span><br><span class="line">  conn = new(user, passwd, url)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_s</span></span></span><br><span class="line">  <span class="string">"OracleConnection [user=<span class="subst">#&#123;@user&#125;</span>, url=<span class="subst">#&#123;@url&#125;</span>]"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">alias_method <span class="symbol">:to_string</span>, <span class="symbol">:to_s</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="test-oracle代码如下"><a href="#test-oracle代码如下" class="headerlink" title="test_oracle代码如下"></a>test_oracle代码如下</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$LOAD_PATH.unshift(File.dirname(__FILE_<span class="number">_</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># test_oracle.rb</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">'jdbc_connection'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Edit these for your database schema</span></span><br><span class="line"><span class="comment"># 服务器用户名称</span></span><br><span class="line">user   = <span class="string">"redouble"</span></span><br><span class="line"><span class="comment"># 用户密码</span></span><br><span class="line">passwd = <span class="string">"victory"</span></span><br><span class="line"><span class="comment"># 服务器的地址，注意写法jdbc:oracle:thin:<span class="doctag">@url</span>:端口号:服务器ming'che</span></span><br><span class="line">url    = <span class="string">"jdbc:oracle:thin:@192.168.31.221:1521:orcl"</span></span><br><span class="line"></span><br><span class="line">print <span class="string">"Run at <span class="subst">#&#123;Time.now&#125;</span> using JRuby <span class="subst">#&#123;RUBY_VERSION&#125;</span>\n\n"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="comment"># 建立链接</span></span><br><span class="line">  conn = OracleConnection.create(user, passwd, url)</span><br><span class="line">  <span class="comment"># Display connection using the to_s method of OracleConnection</span></span><br><span class="line">  puts conn, <span class="string">"\n"</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 写sql语句</span></span><br><span class="line">  query_sql = <span class="string">"SELECT owner, table_name from dba_tables where owner = 'REDOUBLE'"</span></span><br><span class="line">  <span class="comment">#query_stmt = conn.prepare_statement(query_sql)</span></span><br><span class="line">  <span class="comment"># 创建一个任务</span></span><br><span class="line">  query_stmt = conn.create_statement</span><br><span class="line">  <span class="comment"># 使该任务执行上述的sql语句</span></span><br><span class="line">  rs = query_stmt.executeQuery(query_sql)</span><br><span class="line">  <span class="comment"># 由于是查询语句，得到是一个结果集,需要使用next操作</span></span><br><span class="line">  <span class="keyword">while</span> (rs.<span class="keyword">next</span>) <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
           
-下载JDK
-下载JDBC
-下载JRuby:可以使用RVM安装，然后将第二步下载好的ojdbc-x移动到/path_to_rvm/.rvm/rubies/jruby-9.0.5.0/lib目录下
-拷贝代码jdbc_connection.rb和test_oracle.rb，这两rb文件要放在同一个目录
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/07/05/使用JRuby链接Oracle数据库/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1239,16 +1371,41 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
-          Ruby中的YAMLRuby和YAML的关系Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。
-列表表示一个列表很简单，在每个条
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/06/12/Ruby和YAML/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="Ruby中的YAML"><a href="#Ruby中的YAML" class="headerlink" title="Ruby中的YAML"></a>Ruby中的YAML</h1><h2 id="Ruby和YAML的关系"><a href="#Ruby和YAML的关系" class="headerlink" title="Ruby和YAML的关系"></a>Ruby和YAML的关系</h2><p>Ruby和YAML的联系，甚至比Java与XML的联系还要紧密。Ruby把YAML用到了和数据相关的方方面面。配置文件的约定格式是YAML。同时YAML还是Ruby的文本序列化格式，就像XML是SDO的文本序列化格式一样。</p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>表示一个列表很简单，在每个条目前加入一个短横线。比如</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Item1</span><br><span class="line">- Item2</span><br><span class="line">- Item3</span><br></pre></td></tr></table></figure>
+<p>在Ruby中会被解释为数组对象(Array),上例为：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[“Item1”, “Item2”, “Item3”]</span><br></pre></td></tr></table></figure>
+<p>另外，如果向如下情况</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">indusdata_tables:</span></span><br><span class="line">  综合<span class="symbol">:</span></span><br><span class="line">    - [供应商综合信息表, [收款人名称]]</span><br></pre></td></tr></table></figure>
+<p>Ruby解析后如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># indusdata_tables: 对应一个哈希</span></span><br><span class="line"><span class="string">'indusdata_tables'</span> =&gt; &#123; <span class="string">'综合'</span> =&gt; [ [<span class="string">'供应商综合信息表'</span>, [收款人名称] ] ] &#125;</span><br></pre></td></tr></table></figure>
+<p>如果想在Ruby代码中使用YAML配置文件中的内容</p>
+<h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><p>类似于下列代码</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key1 : value1</span><br><span class="line">key2 : value2</span><br><span class="line">key3 : value3</span><br></pre></td></tr></table></figure>
+<p>在Ruby中会被解释为如下的哈希对象</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"key1"</span>=&gt;<span class="string">"value1"</span>, <span class="string">"key2"</span>=&gt;<span class="string">"value2"</span>, <span class="string">"key3"</span>=&gt;<span class="string">"value3"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="字符串和其他基本类型"><a href="#字符串和其他基本类型" class="headerlink" title="字符串和其他基本类型"></a>字符串和其他基本类型</h2><p>YAML会自动判断类型，一般性的文字都会被解释成为字符串。在有可能发生歧义的情况下，可以为字符串加上单引号或者双引号（在双引号下转义字符会被转义，方式与C语言类似）来避免歧义。<br>下面是一个例子。包含有字符串，正数，浮点数，和日期类型</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> : <span class="number">1.0</span></span><br><span class="line"><span class="number">1.0</span> : <span class="string">"1.0"</span></span><br><span class="line"><span class="string">"1.0"</span> : <span class="number">2006</span>-<span class="number">01</span>-<span class="number">01</span></span><br></pre></td></tr></table></figure>
+<p>上述代码在Ruby中会被解释为</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">1</span>=&gt;<span class="number">1.0</span>, <span class="string">"1.0"</span>=&gt;#&lt;Date: 4907473/2,0,2299161&gt;, <span class="number">1.0</span>=&gt;<span class="string">"1.0"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出它的类型被YAML很好的识别出来了</p>
+<h2 id="字符串块"><a href="#字符串块" class="headerlink" title="字符串块"></a>字符串块</h2><p>字符串可能会占据多行，可以用两种方式来处理这种情况，一种是保留换行符，另外一种则是去除换符<br>用|来表示保留换行符：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">|</span></span><br><span class="line"><span class="params">  This is line1.</span></span><br><span class="line"><span class="params">  This is line2.</span></span><br><span class="line"><span class="params">  This is line3.</span></span><br></pre></td></tr></table></figure>
+<p>它会被Ruby解释为：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"This is line1./nThis is line2./nThis is line3."</span></span><br></pre></td></tr></table></figure>
+<p>用&gt;表示删除换行符</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">  Hello,</span><br><span class="line">  world.</span><br></pre></td></tr></table></figure>
+<p>它会被Ruby解释为</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Hello,  world."</span></span><br></pre></td></tr></table></figure>
+<p>除了上面的基本类型，还有更复杂的类型，比如列表中也可以存在另一个列表，哈希中也可能存在另一个哈希，像这种嵌套的方式在YAML中 也是支持的</p>
+<p>对于重复出现的项目，可以用&amp;进行定义，然后用*进行引用。下面用一个比较完整的例子来说明这些内容</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">logEvent:</span>    Purchase Invoice</span><br><span class="line"><span class="symbol">date:</span>        <span class="number">2007</span>-08-<span class="number">06</span></span><br><span class="line"><span class="symbol">customer:</span></span><br><span class="line">    <span class="symbol">given:</span>   Dorothy</span><br><span class="line">    <span class="symbol">family:</span>  Gale</span><br><span class="line"></span><br><span class="line">bill-<span class="symbol">to:</span>  &amp;id001</span><br><span class="line">    <span class="symbol">street:</span> <span class="params">|</span></span><br><span class="line"><span class="params">            123 Tornado Alley</span></span><br><span class="line"><span class="params">            Suite 16</span></span><br><span class="line"><span class="params">    city:   East Westville</span></span><br><span class="line"><span class="params">    state:  KA</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">ship-to:  *id001   </span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">items:</span></span><br><span class="line"><span class="params">    - part_no:   A4786</span></span><br><span class="line"><span class="params">      descrip:   Water Bucket (Filled)</span></span><br><span class="line"><span class="params">      price:     1.47</span></span><br><span class="line"><span class="params">      quantity:  4</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">    - part_no:   E1628</span></span><br><span class="line"><span class="params">      descrip:   High Heeled "Ruby" Slippers</span></span><br><span class="line"><span class="params">      price:     100.27</span></span><br><span class="line"><span class="params">      quantity:  1</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">specialDelivery:  &gt;</span></span><br><span class="line"><span class="params">    Follow the Yellow Brick</span></span><br><span class="line"><span class="params">    Road to the Emerald City.</span></span><br><span class="line"><span class="params">    Pay no attention to the</span></span><br><span class="line"><span class="params">    man behind the curtain.</span></span><br></pre></td></tr></table></figure>
+<p>在Ruby中解释如下</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"items"</span>=&gt;[</span><br><span class="line">    &#123;<span class="string">"price"</span>=&gt;<span class="number">1.47</span>, <span class="string">"quantity"</span>=&gt;<span class="number">4</span>, <span class="string">"part_no"</span>=&gt;<span class="string">"A4786"</span>, <span class="string">"descrip"</span>=&gt;<span class="string">"Water Bucket (Filled)"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"price"</span>=&gt;<span class="number">100.27</span>, <span class="string">"quantity"</span>=&gt;<span class="number">1</span>, <span class="string">"part_no"</span>=&gt;<span class="string">"E1628"</span>, <span class="string">"descrip"</span>=&gt;<span class="string">"High Heeled /"</span>Ruby/<span class="string">" Slippers"</span>&#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"bill-to"</span>=&gt;&#123;<span class="string">"city"</span>=&gt;<span class="string">"East Westville"</span>, <span class="string">"street"</span>=&gt;<span class="string">"123 Tornado Alley/nSuite 16/n"</span>, <span class="string">"state"</span>=&gt;<span class="string">"KA"</span>&#125;,</span><br><span class="line">  <span class="string">"specialDelivery"</span>=&gt;<span class="string">"Follow the Yellow Brick Road to the Emerald City. Pay no attention to the  man behind the curtain."</span>,</span><br><span class="line">  <span class="string">"date"</span>=&gt;#&lt;Date: 4908637/2,0,2299161&gt;,</span><br><span class="line">  <span class="string">"ship-to"</span>=&gt;&#123;<span class="string">"city"</span>=&gt;<span class="string">"East Westville"</span>, <span class="string">"street"</span>=&gt;<span class="string">"123 Tornado Alley/nSuite 16/n"</span>, <span class="string">"state"</span>=&gt;<span class="string">"KA"</span>&#125;,</span><br><span class="line">  <span class="string">"customer"</span>=&gt;&#123;<span class="string">"given"</span>=&gt;<span class="string">"Dorothy"</span>, <span class="string">"family"</span>=&gt;<span class="string">"Gale"</span>&#125;,</span><br><span class="line">  <span class="string">"logEvent"</span>=&gt;<span class="string">"Purchase Invoice"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="YAML和JSON"><a href="#YAML和JSON" class="headerlink" title="YAML和JSON"></a>YAML和JSON</h2><p>注：近来火热的JSON可以看作是（几乎是）YAML的一个子集，一般说来，YAML的解析器都可以解析JSON文档。</p>
+
+          
         
       
     </div>
@@ -1388,15 +1545,21 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
-          Rails中的Params123456789101112131415# Slim= form_for(@user) do |f|        = f.label :name, "姓名"        = f.text_field :name        = f.label :email, "邮箱
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/06/06/Rails中的参数（params）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="Rails中的Params"><a href="#Rails中的Params" class="headerlink" title="Rails中的Params"></a>Rails中的Params</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Slim</span><br><span class="line">= form_for(@user) <span class="keyword">do</span> |f|</span><br><span class="line">        = f.label :name, <span class="string">"姓名"</span></span><br><span class="line">        = f.text_field :name</span><br><span class="line"></span><br><span class="line">        = f.label :email, <span class="string">"邮箱"</span></span><br><span class="line">        = f.email_field :email</span><br><span class="line"></span><br><span class="line">        = f.label :password, <span class="string">"密码"</span></span><br><span class="line">        = f.password_field :password</span><br><span class="line"></span><br><span class="line">        = f.label :password_confirmation, <span class="string">"密码确认"</span></span><br><span class="line">        = f.password_field :password_confirmation</span><br><span class="line"></span><br><span class="line">        = f.submit <span class="string">"创建账户"</span>, class: <span class="string">"btn btn-primary"</span></span><br></pre></td></tr></table></figure>
+<p>假如我们有这样一个表单，当我们点击创建账户按钮的时候，控制台输出的调试信息是：<br> <img src="RailsWithParams_1.jpg" alt="图片"><br>本身Params是一个大的哈希，里面还嵌套的着一个哈希，我们看user对应的这个哈希。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">"user"</span> =&gt; &#123; <span class="string">"name"</span> =&gt; <span class="string">"Foo Bar"</span>,</span><br><span class="line">            <span class="string">"email"</span> =&gt; <span class="string">"foo@invalid"</span>,</span><br><span class="line">            <span class="string">"password"</span> =&gt; <span class="string">"[FILTERED]"</span>,</span><br><span class="line">            <span class="string">"password_confirmation"</span> =&gt; <span class="string">"[FILTERED]"</span></span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<p>这个哈希是params的一部分，会传给Users控制器，前面说过params哈希中包含每次请求的信息，例如向/users/1发送请求时，params[:id]的值是用户的ID，即1，提交表单发送POST请求时，params是一个嵌套哈希。从面的可以看出提交表单后Rails会够将一个名为user的哈希，哈希中键是input标签的name属性的值，键对应的值是用户在字段中填写的内容例如：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id=<span class="string">"user_email"</span> name=<span class="string">"user[email]"</span> type=<span class="string">"email"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>其中，name属性的值是user[email]，表示user哈希中的email元素。<br>虽然调试信息的键是字符串形式，不过却以符号形式传给Users控制器。params[:user] 这个嵌套好戏实际就是User.new方法创建用户所需的参数:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上下两种方式其实是等价的，所以现在就好理解，rails是如何通过参数创建一个新用户了</span></span><br><span class="line">@user = User.new(params[<span class="symbol">:user</span>])</span><br><span class="line">@user = User.new(<span class="symbol">name:</span> <span class="string">"Foo Bar"</span>, <span class="symbol">email:</span> <span class="string">"foo@invalid"</span>,</span><br><span class="line">                     <span class="symbol">password:</span> <span class="string">"foo"</span>, <span class="symbol">password_confirmation:</span> <span class="string">"bar"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="健壮参数"><a href="#健壮参数" class="headerlink" title="健壮参数"></a>健壮参数</h2><p>像如下代码，用一个哈希去创建一个新用户，但是这样做是十分危险的，会把用户提交的所有数据都传给User.new方法，假设除了这几个属性，User模型中还有一个admin属性，用于标识网站的管理员，如果把这个属性设置为true，要在param[:user]中包含admin= ‘1’。这个操作可以使用curl等命令HTTP客户端轻易实现，如果把整个params哈希传给User.new,那么网站中的任何用户都可以在请求中包含admin= ‘1’,来获取管理员权限。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@user = User.new(params[<span class="symbol">:user</span>])</span><br></pre></td></tr></table></figure>
+<p>从Rails 4.0开始，推荐在控制器层使用一种叫做健壮参数的技术，这个技术可以指定需要哪些请求参数，以及允许传入哪些请求参数。而且如果按照上面的传入整个params哈希的方式，应用会抛出异常。<br>本例，我们需要params哈希包含:user元素，而且只允许传入 name, email, password, password_confirmation属性，这个需求可以如下实现：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:name</span>, <span class="symbol">:email</span>, <span class="symbol">:password</span>, <span class="symbol">:password_confirmation</span>)</span><br></pre></td></tr></table></figure>
+<p>这行代码会返回一个params的哈希，只包含允许使用的属性，而且，如果没有指定:user元素还会抛出异常。为了使用方便,可以定义一个名为 user_params 的方法,换掉 params[:user],返回初始化所需的哈希:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    @user = User.new(user_params) <span class="keyword">if</span> @user.save</span><br><span class="line">    <span class="comment"># 处理注册成功的情况 else</span></span><br><span class="line">    render <span class="string">'new'</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_params</span></span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:name</span>, <span class="symbol">:email</span>, <span class="symbol">:password</span>,</span><br><span class="line">                                       <span class="symbol">:password_confirmation</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1536,163 +1699,13 @@ my_rails_project/  app/        -&gt; 用来存
       
         
           
-          离线配置应用环境 copy一、下载安装RVM1234567891011121314151617#1 下载RVM的稳定版安装包curl -sSL https://github.com/rvm/rvm/tarball/stable -o rvm-stable.tar.gz#2 创建RVM文件夹并进入该文
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/06/06/离线环境下配置Ruby环境/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/06/05/网易导航条渐变效果核心代码/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="VignetteApril">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="VignetteApril">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/06/05/网易导航条渐变效果核心代码/" itemprop="url">网易导航条渐变效果核心代码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-05T00:00:00+08:00">
-                2015-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
+            <h1 id="离线配置应用环境-copy"><a href="#离线配置应用环境-copy" class="headerlink" title="离线配置应用环境 copy"></a>离线配置应用环境 copy</h1><h2 id="一、下载安装RVM"><a href="#一、下载安装RVM" class="headerlink" title="一、下载安装RVM"></a>一、下载安装RVM</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载RVM的稳定版安装包</span></span><br><span class="line">curl -sSL https://github.com/rvm/rvm/tarball/stable -o rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 创建RVM文件夹并进入该文件夹</span></span><br><span class="line">mkdir rvm &amp;&amp; <span class="built_in">cd</span> rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 解压缩tar包</span></span><br><span class="line">tar --strip-components=1 -xzf ../rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 安装rvm</span></span><br><span class="line">./install --auto-dotfiles</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 添加环境变量 (如果是在centOS安装的话就是这个路径，如果是其他系统，请改为当前的rvm路径)</span></span><br><span class="line"><span class="built_in">source</span> ~/usr/<span class="built_in">local</span>/rvm/scripts/rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 安装RVM所需要的依赖包</span></span><br><span class="line">rvm requirements</span><br></pre></td></tr></table></figure>
+<h2 id="二、编译安装ruby"><a href="#二、编译安装ruby" class="headerlink" title="二、编译安装ruby"></a>二、编译安装ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载源代码</span></span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.x/ruby-2.x.x.tar.gz</span><br><span class="line">注：自行替换x为具体的数字，比如我想下载2.2.5版本的ruby，我可以输入如下地址：</span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.5.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 解压缩源代码</span></span><br><span class="line">tar zxf ruby-2.x.x.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 进入解压缩出来的文件夹中</span></span><br><span class="line"><span class="built_in">cd</span> ruby-2.x.x</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 执行配置命令（直接复制粘贴即可）</span></span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span> --<span class="built_in">disable</span>-install-doc --with-opt-dir=/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 编译安装</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 添加ruby的环境变量</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># 添加一行：</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/ruby/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># 保存退出，并且source</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h2 id="三、RVM挂载ruby"><a href="#三、RVM挂载ruby" class="headerlink" title="三、RVM挂载ruby"></a>三、RVM挂载ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用rvm mount 命令可以挂载ruby</span></span><br><span class="line">rvm mount /usr/<span class="built_in">local</span>/ruby</span><br></pre></td></tr></table></figure>
+<h2 id="四、下载安装rubygems"><a href="#四、下载安装rubygems" class="headerlink" title="四、下载安装rubygems"></a>四、下载安装rubygems</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的rubygems</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 如果是zip格式的直接解压缩文件并进入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3 安装rubygems</span></span><br><span class="line">ruby setup.rb</span><br></pre></td></tr></table></figure>
+<h2 id="五、下载安装bundler"><a href="#五、下载安装bundler" class="headerlink" title="五、下载安装bundler"></a>五、下载安装bundler</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的bundler</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地安装bundler</span></span><br><span class="line">进入到bundler.gem所在的文件夹输入：</span><br><span class="line">gem install bundler -l</span><br></pre></td></tr></table></figure>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Object-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Object-C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          12345678910111213141516171819202122232425262728293031323334353637383940// 滚动中调用- (void)scrollViewDidScroll:(UIScrollView *)scrollView&#123;    CGFloat
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/06/05/网易导航条渐变效果核心代码/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1729,6 +1742,10 @@ my_rails_project/  app/        -&gt; 用来存
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1772,7 +1789,7 @@ my_rails_project/  app/        -&gt; 用来存
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1841,9 +1858,15 @@ my_rails_project/  app/        -&gt; 用来存
 </div>
 
 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
@@ -1942,13 +1965,6 @@ my_rails_project/  app/        -&gt; 用来存
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
 
