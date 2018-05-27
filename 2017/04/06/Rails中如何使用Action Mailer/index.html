@@ -356,7 +356,7 @@
 </li>
 <li><p>default方法<br>该方法是可以设置默认的mail方法接受的参数<br>比如本例中使用了如下default设置</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br></pre></td></tr></table></figure>
-<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#x33;&#x36;&#48;&#x31;&#x31;&#x31;&#x35;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#49;&#x33;&#x36;&#48;&#x31;&#x31;&#x31;&#x35;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;</a></em><br>当然你也可以设置其他的参数默认值</p>
+<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#x33;&#54;&#48;&#49;&#x31;&#49;&#53;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#49;&#x33;&#54;&#48;&#49;&#x31;&#49;&#53;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;</a></em><br>当然你也可以设置其他的参数默认值</p>
 </li>
 </ol>
 <p>至此我们的controller已经简单的设置好了，下面我们再去看看ActionMailer的view层。在刚才输入指令生成邮件程序的时候，我们看到rails创建了两个后缀为text.erb的文件，这两个就是电子邮件的view层文件，它从controller里获取到数据，然后将数据展示在界面上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create app/views/order_mailer/received.text.erb</span><br><span class="line">create app/views/order_mailer/shipped.tex.erb</span><br></pre></td></tr></table></figure></p>

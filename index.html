@@ -796,7 +796,7 @@
 </li>
 <li><p>default方法<br>该方法是可以设置默认的mail方法接受的参数<br>比如本例中使用了如下default设置</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default <span class="symbol">from:</span> <span class="string">'Zhangjie &lt;13601115771@163.com&gt;'</span></span><br></pre></td></tr></table></figure>
-<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#x33;&#x36;&#48;&#x31;&#x31;&#x31;&#x35;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#49;&#x33;&#x36;&#48;&#x31;&#x31;&#x31;&#x35;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;</a></em><br>当然你也可以设置其他的参数默认值</p>
+<p>mail方法的from参数被设置默认为<em>Zhangjie <a href="mailto:&#49;&#x33;&#54;&#48;&#49;&#x31;&#49;&#53;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#49;&#x33;&#54;&#48;&#49;&#x31;&#49;&#53;&#55;&#55;&#x31;&#64;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;</a></em><br>当然你也可以设置其他的参数默认值</p>
 </li>
 </ol>
 <p>至此我们的controller已经简单的设置好了，下面我们再去看看ActionMailer的view层。在刚才输入指令生成邮件程序的时候，我们看到rails创建了两个后缀为text.erb的文件，这两个就是电子邮件的view层文件，它从controller里获取到数据，然后将数据展示在界面上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create app/views/order_mailer/received.text.erb</span><br><span class="line">create app/views/order_mailer/shipped.tex.erb</span><br></pre></td></tr></table></figure></p>
@@ -951,10 +951,8 @@
 <li>从任意的文件中抽取数据</li>
 <li>生成下载文件的链接</li>
 </ul>
-<h2 id="Active-Storage用法"><a href="#Active-Storage用法" class="headerlink" title="Active Storage用法"></a>Active Storage用法</h2><h2 id="一、配置Active-Storage"><a href="#一、配置Active-Storage" class="headerlink" title="一、配置Active Storage"></a>一、配置Active Storage</h2><h3 id="1-1、升级Rails到5-2-0"><a href="#1-1、升级Rails到5-2-0" class="headerlink" title="1.1、升级Rails到5.2.0"></a>1.1、升级Rails到5.2.0</h3><h3 id="1-2、生成Active-Storage的迁移文件"><a href="#1-2、生成Active-Storage的迁移文件" class="headerlink" title="1.2、生成Active Storage的迁移文件"></a>1.2、生成Active Storage的迁移文件</h3><h3 id="1-3、运行rails-db-migrate建立对应的数据表"><a href="#1-3、运行rails-db-migrate建立对应的数据表" class="headerlink" title="1.3、运行rails db:migrate建立对应的数据表"></a>1.3、运行rails db:migrate建立对应的数据表</h3><h3 id="1-4、在config-storage-yml中声明Active-Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置"><a href="#1-4、在config-storage-yml中声明Active-Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置" class="headerlink" title="1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置"></a>1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置</h3><h3 id="1-5、通过设置Rails-application-config-active-storage-service告诉Active-Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config-environments对于每种环境分别设置服务"><a href="#1-5、通过设置Rails-application-config-active-storage-service告诉Active-Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config-environments对于每种环境分别设置服务" class="headerlink" title="1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务"></a>1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务</h3><p>值得注意的是每种服务都依赖对应的gem包：<br>如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’</p>
-<h3 id="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"><a href="#到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。" class="headerlink" title="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"></a>到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。</h3><h2 id="二、简单实用Active-Storage"><a href="#二、简单实用Active-Storage" class="headerlink" title="二、简单实用Active Storage"></a>二、简单实用Active Storage</h2><h3 id="2-1、首先将Active-Storage和一个模型的字段关联起来"><a href="#2-1、首先将Active-Storage和一个模型的字段关联起来" class="headerlink" title="2.1、首先将Active Storage和一个模型的字段关联起来"></a>2.1、首先将Active Storage和一个模型的字段关联起来</h3><p>关联的方式有两种：has_one_attached和has_many_attached，顾名思义第一种关联方式是一行数据只关联一个附件，第二种就是可以有多个附件</p>
-<h3 id="2-2-controller层面上，你只需要修改下健壮参数方法"><a href="#2-2-controller层面上，你只需要修改下健壮参数方法" class="headerlink" title="2.2. controller层面上，你只需要修改下健壮参数方法"></a>2.2. controller层面上，你只需要修改下健壮参数方法</h3><p>当相关字段是has_one_attached，健壮参数方法不用改变<br>当相关字段是has_many_attached，健壮参数需要改成如下形式<br>=&gt; 将 params.require(:product).permit(:name, :avatar, :detail_images)<br>=&gt; 改为 params.require(:product).permit(:name, :avatar, detail_images: [])</p>
-<h3 id="2-3-view层表单部分如果你不用direct-upload特性的话就不用改变什么，正常的表单就行了"><a href="#2-3-view层表单部分如果你不用direct-upload特性的话就不用改变什么，正常的表单就行了" class="headerlink" title="2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了"></a>2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了</h3><h3 id="2-4-view层展现部分你可以使用image-tag然后url部分使用url-for-product-avatar-这里avatar是active-storage-has-one-attached相关联的字段-，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image-tag-detail-image-preview-resize-“200x200”-这样的方式将图片展示出来。"><a href="#2-4-view层展现部分你可以使用image-tag然后url部分使用url-for-product-avatar-这里avatar是active-storage-has-one-attached相关联的字段-，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image-tag-detail-image-preview-resize-“200x200”-这样的方式将图片展示出来。" class="headerlink" title="2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。"></a>2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。</h3><p>值得注意的是：当文件不是图片，而是PDF或者视频，你想预览该文件时，你需要下载相关的gem mini_migick，还需要三方的插件，PDF的预览需要mutool、Video的预览需要ffmpeg</p>
+<h2 id="Active-Storage用法"><a href="#Active-Storage用法" class="headerlink" title="Active Storage用法"></a>Active Storage用法</h2><h2 id="一、配置Active-Storage"><a href="#一、配置Active-Storage" class="headerlink" title="一、配置Active Storage"></a>一、配置Active Storage</h2><p>1.1、升级Rails到5.2.0<br>1.2、生成Active Storage的迁移文件<br>1.3、运行rails db:migrate建立对应的数据表<br>1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置<br>1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务</p>
+<h3 id="值得注意的是每种服务都依赖对应的gem包：-如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’"><a href="#值得注意的是每种服务都依赖对应的gem包：-如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’" class="headerlink" title="值得注意的是每种服务都依赖对应的gem包： 如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’"></a>值得注意的是每种服务都依赖对应的gem包： 如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’</h3><h3 id="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"><a href="#到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。" class="headerlink" title="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"></a>到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。</h3><h2 id="二、简单实用Active-Storage"><a href="#二、简单实用Active-Storage" class="headerlink" title="二、简单实用Active Storage"></a>二、简单实用Active Storage</h2><p>2.1、首先将Active Storage和一个模型的字段关联起来<br>关联的方式有两种：has_one_attached和has_many_attached，顾名思义第一种关联方式是一行数据只关联一个附件，第二种就是可以有多个附件<br>2.2. controller层面上，你只需要修改下健壮参数方法<br>当相关字段是has_one_attached，健壮参数方法不用改变<br>当相关字段是has_many_attached，健壮参数需要改成如下形式<br>=&gt; 将 params.require(:product).permit(:name, :avatar, :detail_images)<br>=&gt; 改为 params.require(:product).permit(:name, :avatar, detail_images: [])<br>2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了<br>2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。<br>值得注意的是：当文件不是图片，而是PDF或者视频，你想预览该文件时，你需要下载相关的gem mini_migick，还需要三方的插件，PDF的预览需要mutool、Video的预览需要ffmpeg</p>
 <h3 id="到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何"><a href="#到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何" class="headerlink" title="到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何"></a>到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何</h3><h2 id="三、如何删除和model关联的文件"><a href="#三、如何删除和model关联的文件" class="headerlink" title="三、如何删除和model关联的文件"></a>三、如何删除和model关联的文件</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里我们假设avatar字段是active storage相关联的字段</span></span><br><span class="line"><span class="comment"># purge方法是立刻删除相关文件</span></span><br><span class="line"><span class="comment"># purge_later则是调用了active job，将删除操作加入到了队列中</span></span><br><span class="line">@product.avatar.purge</span><br><span class="line">@product.avatar.purge_later</span><br></pre></td></tr></table></figure>
 <h2 id="四、如何使用Active-Storage生成下载链接"><a href="#四、如何使用Active-Storage生成下载链接" class="headerlink" title="四、如何使用Active Storage生成下载链接"></a>四、如何使用Active Storage生成下载链接</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只需要在页面上加上一个连接按钮即可</span></span><br><span class="line">= link_to <span class="string">'下载'</span>, rails_blob_path(product.avatar, <span class="symbol">disposition:</span> <span class="string">"attachment"</span>)</span><br></pre></td></tr></table></figure>
 
@@ -1477,152 +1475,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/06/离线环境下配置Ruby环境/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="VignetteApril">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="VignetteApril">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/06/06/离线环境下配置Ruby环境/" itemprop="url">离线状态下配置Ruby环境</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T00:00:00+08:00">
-                2016-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ruby/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="离线配置应用环境-copy"><a href="#离线配置应用环境-copy" class="headerlink" title="离线配置应用环境 copy"></a>离线配置应用环境 copy</h1><h2 id="一、下载安装RVM"><a href="#一、下载安装RVM" class="headerlink" title="一、下载安装RVM"></a>一、下载安装RVM</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载RVM的稳定版安装包</span></span><br><span class="line">curl -sSL https://github.com/rvm/rvm/tarball/stable -o rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 创建RVM文件夹并进入该文件夹</span></span><br><span class="line">mkdir rvm &amp;&amp; <span class="built_in">cd</span> rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 解压缩tar包</span></span><br><span class="line">tar --strip-components=1 -xzf ../rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 安装rvm</span></span><br><span class="line">./install --auto-dotfiles</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 添加环境变量 (如果是在centOS安装的话就是这个路径，如果是其他系统，请改为当前的rvm路径)</span></span><br><span class="line"><span class="built_in">source</span> ~/usr/<span class="built_in">local</span>/rvm/scripts/rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 安装RVM所需要的依赖包</span></span><br><span class="line">rvm requirements</span><br></pre></td></tr></table></figure>
-<h2 id="二、编译安装ruby"><a href="#二、编译安装ruby" class="headerlink" title="二、编译安装ruby"></a>二、编译安装ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载源代码</span></span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.x/ruby-2.x.x.tar.gz</span><br><span class="line">注：自行替换x为具体的数字，比如我想下载2.2.5版本的ruby，我可以输入如下地址：</span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.5.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 解压缩源代码</span></span><br><span class="line">tar zxf ruby-2.x.x.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 进入解压缩出来的文件夹中</span></span><br><span class="line"><span class="built_in">cd</span> ruby-2.x.x</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 执行配置命令（直接复制粘贴即可）</span></span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span> --<span class="built_in">disable</span>-install-doc --with-opt-dir=/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 编译安装</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 添加ruby的环境变量</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># 添加一行：</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/ruby/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># 保存退出，并且source</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h2 id="三、RVM挂载ruby"><a href="#三、RVM挂载ruby" class="headerlink" title="三、RVM挂载ruby"></a>三、RVM挂载ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用rvm mount 命令可以挂载ruby</span></span><br><span class="line">rvm mount /usr/<span class="built_in">local</span>/ruby</span><br></pre></td></tr></table></figure>
-<h2 id="四、下载安装rubygems"><a href="#四、下载安装rubygems" class="headerlink" title="四、下载安装rubygems"></a>四、下载安装rubygems</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的rubygems</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 如果是zip格式的直接解压缩文件并进入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3 安装rubygems</span></span><br><span class="line">ruby setup.rb</span><br></pre></td></tr></table></figure>
-<h2 id="五、下载安装bundler"><a href="#五、下载安装bundler" class="headerlink" title="五、下载安装bundler"></a>五、下载安装bundler</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的bundler</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地安装bundler</span></span><br><span class="line">进入到bundler.gem所在的文件夹输入：</span><br><span class="line">gem install bundler -l</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/06/Rails中的参数（params）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1729,6 +1581,152 @@
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:name</span>, <span class="symbol">:email</span>, <span class="symbol">:password</span>, <span class="symbol">:password_confirmation</span>)</span><br></pre></td></tr></table></figure>
 <p>这行代码会返回一个params的哈希，只包含允许使用的属性，而且，如果没有指定:user元素还会抛出异常。为了使用方便,可以定义一个名为 user_params 的方法,换掉 params[:user],返回初始化所需的哈希:</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    @user = User.new(user_params) <span class="keyword">if</span> @user.save</span><br><span class="line">    <span class="comment"># 处理注册成功的情况 else</span></span><br><span class="line">    render <span class="string">'new'</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_params</span></span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:name</span>, <span class="symbol">:email</span>, <span class="symbol">:password</span>,</span><br><span class="line">                                       <span class="symbol">:password_confirmation</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/06/离线环境下配置Ruby环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="VignetteApril">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VignetteApril">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/06/离线环境下配置Ruby环境/" itemprop="url">离线状态下配置Ruby环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T00:00:00+08:00">
+                2016-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="离线配置应用环境-copy"><a href="#离线配置应用环境-copy" class="headerlink" title="离线配置应用环境 copy"></a>离线配置应用环境 copy</h1><h2 id="一、下载安装RVM"><a href="#一、下载安装RVM" class="headerlink" title="一、下载安装RVM"></a>一、下载安装RVM</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载RVM的稳定版安装包</span></span><br><span class="line">curl -sSL https://github.com/rvm/rvm/tarball/stable -o rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 创建RVM文件夹并进入该文件夹</span></span><br><span class="line">mkdir rvm &amp;&amp; <span class="built_in">cd</span> rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 解压缩tar包</span></span><br><span class="line">tar --strip-components=1 -xzf ../rvm-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 安装rvm</span></span><br><span class="line">./install --auto-dotfiles</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 添加环境变量 (如果是在centOS安装的话就是这个路径，如果是其他系统，请改为当前的rvm路径)</span></span><br><span class="line"><span class="built_in">source</span> ~/usr/<span class="built_in">local</span>/rvm/scripts/rvm</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 安装RVM所需要的依赖包</span></span><br><span class="line">rvm requirements</span><br></pre></td></tr></table></figure>
+<h2 id="二、编译安装ruby"><a href="#二、编译安装ruby" class="headerlink" title="二、编译安装ruby"></a>二、编译安装ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载源代码</span></span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.x/ruby-2.x.x.tar.gz</span><br><span class="line">注：自行替换x为具体的数字，比如我想下载2.2.5版本的ruby，我可以输入如下地址：</span><br><span class="line">https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.5.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 解压缩源代码</span></span><br><span class="line">tar zxf ruby-2.x.x.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 进入解压缩出来的文件夹中</span></span><br><span class="line"><span class="built_in">cd</span> ruby-2.x.x</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 执行配置命令（直接复制粘贴即可）</span></span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span> --<span class="built_in">disable</span>-install-doc --with-opt-dir=/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 编译安装</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#6 添加ruby的环境变量</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># 添加一行：</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/ruby/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># 保存退出，并且source</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h2 id="三、RVM挂载ruby"><a href="#三、RVM挂载ruby" class="headerlink" title="三、RVM挂载ruby"></a>三、RVM挂载ruby</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用rvm mount 命令可以挂载ruby</span></span><br><span class="line">rvm mount /usr/<span class="built_in">local</span>/ruby</span><br></pre></td></tr></table></figure>
+<h2 id="四、下载安装rubygems"><a href="#四、下载安装rubygems" class="headerlink" title="四、下载安装rubygems"></a>四、下载安装rubygems</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的rubygems</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 如果是zip格式的直接解压缩文件并进入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3 安装rubygems</span></span><br><span class="line">ruby setup.rb</span><br></pre></td></tr></table></figure>
+<h2 id="五、下载安装bundler"><a href="#五、下载安装bundler" class="headerlink" title="五、下载安装bundler"></a>五、下载安装bundler</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 下载最新的bundler</span></span><br><span class="line">https://rubygems.org/pages/download</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地安装bundler</span></span><br><span class="line">进入到bundler.gem所在的文件夹输入：</span><br><span class="line">gem install bundler -l</span><br></pre></td></tr></table></figure>
 
           
         
