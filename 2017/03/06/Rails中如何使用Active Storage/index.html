@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Rails,Action Cable," />
+  <meta name="keywords" content="Rails,Action Storage," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。 一、创建频道1.1 创建products channel123456# 在命令行输入指令创建products channelrails_p">
-<meta name="keywords" content="Rails,Action Cable">
+<meta name="description" content="ActiveStorage，该组件的功能是将本地的文件传到类似 Amazon’s S3, Google’s Cloud Storage, and Microsoft Azure Cloud等云服务进行存储。 Active Storage可以做到 使用ImageMagick上传并转换图片 预览非图片格式文件，比如PDF，视频 从任意的文件中抽取数据 生成下载文件的链接  Active Storage">
+<meta name="keywords" content="Rails,Action Storage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rails中如何使用Action Cable">
+<meta property="og:title" content="Rails中如何使用Active Storage">
 <meta property="og:url" content="http://yoursite.com/2017/03/06/Rails中如何使用Active Storage/index.html">
 <meta property="og:site_name" content="VignetteApril">
-<meta property="og:description" content="Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。 一、创建频道1.1 创建products channel123456# 在命令行输入指令创建products channelrails_p">
+<meta property="og:description" content="ActiveStorage，该组件的功能是将本地的文件传到类似 Amazon’s S3, Google’s Cloud Storage, and Microsoft Azure Cloud等云服务进行存储。 Active Storage可以做到 使用ImageMagick上传并转换图片 预览非图片格式文件，比如PDF，视频 从任意的文件中抽取数据 生成下载文件的链接  Active Storage">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-23T14:11:56.784Z">
+<meta property="og:updated_time" content="2018-05-27T08:06:01.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rails中如何使用Action Cable">
-<meta name="twitter:description" content="Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。 一、创建频道1.1 创建products channel123456# 在命令行输入指令创建products channelrails_p">
+<meta name="twitter:title" content="Rails中如何使用Active Storage">
+<meta name="twitter:description" content="ActiveStorage，该组件的功能是将本地的文件传到类似 Amazon’s S3, Google’s Cloud Storage, and Microsoft Azure Cloud等云服务进行存储。 Active Storage可以做到 使用ImageMagick上传并转换图片 预览非图片格式文件，比如PDF，视频 从任意的文件中抽取数据 生成下载文件的链接  Active Storage">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Rails中如何使用Action Cable | VignetteApril</title>
+  <title>Rails中如何使用Active Storage | VignetteApril</title>
   
 
 
@@ -191,16 +191,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
@@ -227,16 +217,6 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            Sitemap
           </a>
         </li>
       
@@ -290,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Rails中如何使用Action Cable</h1>
+          <h1 class="post-title" itemprop="name headline">Rails中如何使用Active Storage</h1>
         
 
         <div class="post-meta">
@@ -362,14 +342,19 @@
       
 
       
-        <p>Action Cable 通过提供给客户端JavaScript框架和服务器端Ruby框架把WebSocket协议和Rails应用的其余部分无缝的集成起来，通过Action Cable，可以轻松的为Rails应用提供实时更新功能，不仅性能良好，而且具有可扩展性。</p>
-<h2 id="一、创建频道"><a href="#一、创建频道" class="headerlink" title="一、创建频道"></a>一、创建频道</h2><h3 id="1-1-创建products-channel"><a href="#1-1-创建products-channel" class="headerlink" title="1.1 创建products channel"></a>1.1 创建products channel</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在命令行输入指令创建products channel</span></span><br><span class="line">rails_project&gt; rails generate channel products</span><br><span class="line">  create app/channels/products_channel.rb</span><br><span class="line">  identical app/assets/javascripts/cable.js</span><br><span class="line">  create  app/assets/javascripts/channels/products.coffee</span><br><span class="line"><span class="comment"># 通过返回的系统信息，我们看到rails创建了一个products_channel.rb文件和一个products.coffee文件</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-2-修改products-channel-rb"><a href="#1-2-修改products-channel-rb" class="headerlink" title="1.2 修改products_channel.rb"></a>1.2 修改products_channel.rb</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开products_channel.rb文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductsChannel</span> &lt; ApplicationCable::Channel</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span></span></span><br><span class="line">    <span class="comment"># 订阅流名为products的流，值得一提的是一个channel支持订阅多个流，目前咱们先做一个流</span></span><br><span class="line">&gt;   stream_from <span class="string">"products"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unsubcribed</span></span></span><br><span class="line">    <span class="comment"># 取消订阅做的事情</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p><em>默认情况下Rails只允许从本地主机访问频道，要想多台电脑进行开发的话，必须禁止这项检查。为此，需要在config/enviroments/development.rb中加一行代码</em><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.action_cable.disable_request_forgery_protection = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="二、广播数据"><a href="#二、广播数据" class="headerlink" title="二、广播数据"></a>二、广播数据</h2><p>当一个product（产品）更新了之后，就需要对整个目录进行广播，当然也可以发送给部分目录，或发送所需其他的数据。不过，因为我们已经拥有了目录视图，所以就要想办法使用它。</p>
-<p>rails_project/app/controllers/products_controller.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span></span></span><br><span class="line">  response_to <span class="keyword">do</span> <span class="params">|format|</span></span><br><span class="line">    <span class="keyword">if</span> @product.update(product_params)</span><br><span class="line">      format.html &#123; redirect_to @products, <span class="symbol">notice:</span> <span class="string">'Product was Successfully updated'</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">:show</span>, <span class="symbol">status:</span> <span class="symbol">:ok</span>, <span class="symbol">location:</span> @product &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 获取更新后的所有产品数据</span></span><br><span class="line">      @products = Product.all</span><br><span class="line">      <span class="comment"># 将新的数据广播出去</span></span><br><span class="line">      <span class="comment"># 同时调用render_to_string方法，将视图渲染为字符串，并传递layout: false作为参数，这是因为我们需要的只是这个视图，而不是整个页面</span></span><br><span class="line">      <span class="comment"># 广播消息通常是由Ruby的hash结构组成，他们被转换为JSON，然后发送，最终作为JS对象来处理，这里，我们使用html作为hash里的key</span></span><br><span class="line">      <span class="comment"># 所以我们现在广播的数据应该是这样的&#123;html: '...'&#125; 省略的部分是store/index页面字符串</span></span><br><span class="line">      ActionCable.server.broadcast <span class="string">'produsts'</span>, <span class="symbol">html:</span> render_to_string(<span class="string">'store/index'</span>, <span class="symbol">layout:</span> <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      format.html &#123; render <span class="symbol">:edit</span> &#125;</span><br><span class="line">      format.json &#123; render <span class="symbol">json:</span> @product.errors, <span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span> &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="三、接收数据"><a href="#三、接收数据" class="headerlink" title="三、接收数据"></a>三、接收数据</h2><p>最后一步是在客户端上接收数据，以及接收了数据之后要干什么</p>
-<p>rails_project/app/assets/javascripts/channels/products.coffee<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">App.products = App.cable.subscriptions.create <span class="string">"ProductsChannel"</span></span><br><span class="line">  <span class="symbol">connect:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听准备好时调用</span></span><br><span class="line">  <span class="symbol">disconnected:</span> -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当监听被终止是调用</span></span><br><span class="line">  <span class="symbol">received:</span> (data) -&gt;</span><br><span class="line">    <span class="comment"># 钩子方法： 当接受到数据时调用</span></span><br><span class="line">    <span class="comment"># 还记得广播数据中我们说的数据格式么（&#123;html: '...'&#125;）, Ruby通过.方法取出该hash的key(html)</span></span><br><span class="line">    <span class="comment"># 我们通过HTML元素查找，找到class 为store中的id为main的元素，并替换其中的html元素</span></span><br><span class="line">    <span class="comment"># 至此我们就完成使用ActionCable</span></span><br><span class="line">    $(<span class="string">".store #main"</span>).html(data.html)</span><br></pre></td></tr></table></figure></p>
+        <p>ActiveStorage，该组件的功能是将本地的文件传到类似 Amazon’s S3, Google’s Cloud Storage, and Microsoft Azure Cloud等云服务进行存储。</p>
+<h3 id="Active-Storage可以做到"><a href="#Active-Storage可以做到" class="headerlink" title="Active Storage可以做到"></a>Active Storage可以做到</h3><ul>
+<li>使用ImageMagick上传并转换图片</li>
+<li>预览非图片格式文件，比如PDF，视频</li>
+<li>从任意的文件中抽取数据</li>
+<li>生成下载文件的链接</li>
+</ul>
+<h2 id="Active-Storage用法"><a href="#Active-Storage用法" class="headerlink" title="Active Storage用法"></a>Active Storage用法</h2><h2 id="一、配置Active-Storage"><a href="#一、配置Active-Storage" class="headerlink" title="一、配置Active Storage"></a>一、配置Active Storage</h2><h3 id="1-1、升级Rails到5-2-0"><a href="#1-1、升级Rails到5-2-0" class="headerlink" title="1.1、升级Rails到5.2.0"></a>1.1、升级Rails到5.2.0</h3><h3 id="1-2、生成Active-Storage的迁移文件"><a href="#1-2、生成Active-Storage的迁移文件" class="headerlink" title="1.2、生成Active Storage的迁移文件"></a>1.2、生成Active Storage的迁移文件</h3><h3 id="1-3、运行rails-db-migrate建立对应的数据表"><a href="#1-3、运行rails-db-migrate建立对应的数据表" class="headerlink" title="1.3、运行rails db:migrate建立对应的数据表"></a>1.3、运行rails db:migrate建立对应的数据表</h3><h3 id="1-4、在config-storage-yml中声明Active-Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置"><a href="#1-4、在config-storage-yml中声明Active-Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置" class="headerlink" title="1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置"></a>1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置</h3><h3 id="1-5、通过设置Rails-application-config-active-storage-service告诉Active-Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config-environments对于每种环境分别设置服务"><a href="#1-5、通过设置Rails-application-config-active-storage-service告诉Active-Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config-environments对于每种环境分别设置服务" class="headerlink" title="1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务"></a>1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务</h3><p>值得注意的是每种服务都依赖对应的gem包：<br>如亚马逊依赖’aws-sdk-s3’、微软云依赖’azure-storage’</p>
+<h3 id="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"><a href="#到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。" class="headerlink" title="到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"></a>到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。</h3><h2 id="二、简单实用Active-Storage"><a href="#二、简单实用Active-Storage" class="headerlink" title="二、简单实用Active Storage"></a>二、简单实用Active Storage</h2><h3 id="2-1、首先将Active-Storage和一个模型的字段关联起来"><a href="#2-1、首先将Active-Storage和一个模型的字段关联起来" class="headerlink" title="2.1、首先将Active Storage和一个模型的字段关联起来"></a>2.1、首先将Active Storage和一个模型的字段关联起来</h3><p>关联的方式有两种：has_one_attached和has_many_attached，顾名思义第一种关联方式是一行数据只关联一个附件，第二种就是可以有多个附件</p>
+<h3 id="2-2-controller层面上，你只需要修改下健壮参数方法"><a href="#2-2-controller层面上，你只需要修改下健壮参数方法" class="headerlink" title="2.2. controller层面上，你只需要修改下健壮参数方法"></a>2.2. controller层面上，你只需要修改下健壮参数方法</h3><p>当相关字段是has_one_attached，健壮参数方法不用改变<br>当相关字段是has_many_attached，健壮参数需要改成如下形式<br>=&gt; 将 params.require(:product).permit(:name, :avatar, :detail_images)<br>=&gt; 改为 params.require(:product).permit(:name, :avatar, detail_images: [])</p>
+<h3 id="2-3-view层表单部分如果你不用direct-upload特性的话就不用改变什么，正常的表单就行了"><a href="#2-3-view层表单部分如果你不用direct-upload特性的话就不用改变什么，正常的表单就行了" class="headerlink" title="2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了"></a>2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了</h3><h3 id="2-4-view层展现部分你可以使用image-tag然后url部分使用url-for-product-avatar-这里avatar是active-storage-has-one-attached相关联的字段-，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image-tag-detail-image-preview-resize-“200x200”-这样的方式将图片展示出来。"><a href="#2-4-view层展现部分你可以使用image-tag然后url部分使用url-for-product-avatar-这里avatar是active-storage-has-one-attached相关联的字段-，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image-tag-detail-image-preview-resize-“200x200”-这样的方式将图片展示出来。" class="headerlink" title="2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。"></a>2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。</h3><p>值得注意的是：当文件不是图片，而是PDF或者视频，你想预览该文件时，你需要下载相关的gem mini_migick，还需要三方的插件，PDF的预览需要mutool、Video的预览需要ffmpeg</p>
+<h3 id="到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何"><a href="#到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何" class="headerlink" title="到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何"></a>到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何</h3><h2 id="三、如何删除和model关联的文件"><a href="#三、如何删除和model关联的文件" class="headerlink" title="三、如何删除和model关联的文件"></a>三、如何删除和model关联的文件</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里我们假设avatar字段是active storage相关联的字段</span></span><br><span class="line"><span class="comment"># purge方法是立刻删除相关文件</span></span><br><span class="line"><span class="comment"># purge_later则是调用了active job，将删除操作加入到了队列中</span></span><br><span class="line">@product.avatar.purge</span><br><span class="line">@product.avatar.purge_later</span><br></pre></td></tr></table></figure>
+<h2 id="四、如何使用Active-Storage生成下载链接"><a href="#四、如何使用Active-Storage生成下载链接" class="headerlink" title="四、如何使用Active Storage生成下载链接"></a>四、如何使用Active Storage生成下载链接</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只需要在页面上加上一个连接按钮即可</span></span><br><span class="line">= link_to <span class="string">'下载'</span>, rails_blob_path(product.avatar, <span class="symbol">disposition:</span> <span class="string">"attachment"</span>)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -389,7 +374,7 @@
           
             <a href="/tags/Rails/" rel="tag"># Rails</a>
           
-            <a href="/tags/Action-Cable/" rel="tag"># Action Cable</a>
+            <a href="/tags/Action-Storage/" rel="tag"># Action Storage</a>
           
         </div>
       
@@ -513,7 +498,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -546,7 +531,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、创建频道"><span class="nav-number">1.</span> <span class="nav-text">一、创建频道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-创建products-channel"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 创建products channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-修改products-channel-rb"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 修改products_channel.rb</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、广播数据"><span class="nav-number">2.</span> <span class="nav-text">二、广播数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、接收数据"><span class="nav-number">3.</span> <span class="nav-text">三、接收数据</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Storage可以做到"><span class="nav-number">1.</span> <span class="nav-text">Active Storage可以做到</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Active-Storage用法"><span class="nav-number"></span> <span class="nav-text">Active Storage用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、配置Active-Storage"><span class="nav-number"></span> <span class="nav-text">一、配置Active Storage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、升级Rails到5-2-0"><span class="nav-number">1.</span> <span class="nav-text">1.1、升级Rails到5.2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、生成Active-Storage的迁移文件"><span class="nav-number">2.</span> <span class="nav-text">1.2、生成Active Storage的迁移文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3、运行rails-db-migrate建立对应的数据表"><span class="nav-number">3.</span> <span class="nav-text">1.3、运行rails db:migrate建立对应的数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4、在config-storage-yml中声明Active-Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置"><span class="nav-number">4.</span> <span class="nav-text">1.4、在config/storage.yml中声明Active Storage的服务，对于每一个服务你必须提供一个服务名称和一些必要的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5、通过设置Rails-application-config-active-storage-service告诉Active-Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config-environments对于每种环境分别设置服务"><span class="nav-number">5.</span> <span class="nav-text">1.5、通过设置Rails.application.config.active_storage.service告诉Active Storage该使用哪个服务，因为每一个环境所使用的服务是不同的，推荐的做法是在config/environments对于每种环境分别设置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。"><span class="nav-number">6.</span> <span class="nav-text">到此为止关于active相关的设置已经完成，我们可以先使用本地的服务（local）测试下。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、简单实用Active-Storage"><span class="nav-number"></span> <span class="nav-text">二、简单实用Active Storage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、首先将Active-Storage和一个模型的字段关联起来"><span class="nav-number">1.</span> <span class="nav-text">2.1、首先将Active Storage和一个模型的字段关联起来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-controller层面上，你只需要修改下健壮参数方法"><span class="nav-number">2.</span> <span class="nav-text">2.2. controller层面上，你只需要修改下健壮参数方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-view层表单部分如果你不用direct-upload特性的话就不用改变什么，正常的表单就行了"><span class="nav-number">3.</span> <span class="nav-text">2.3 view层表单部分如果你不用direct_upload特性的话就不用改变什么，正常的表单就行了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-view层展现部分你可以使用image-tag然后url部分使用url-for-product-avatar-这里avatar是active-storage-has-one-attached相关联的字段-，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image-tag-detail-image-preview-resize-“200x200”-这样的方式将图片展示出来。"><span class="nav-number">4.</span> <span class="nav-text">2.4 view层展现部分你可以使用image_tag然后url部分使用url_for(product.avatar)(这里avatar是active storage has_one_attached相关联的字段)，这样就可以将图片展示出来，如果你的文件不是图片，而是PDF或者图片是，你需要使用image_tag detail_image.preview(resize: “200x200”)这样的方式将图片展示出来。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何"><span class="nav-number">5.</span> <span class="nav-text">到现在为止相关上传的图片应该能展现出来了、下面我聊聊如何</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、如何删除和model关联的文件"><span class="nav-number"></span> <span class="nav-text">三、如何删除和model关联的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、如何使用Active-Storage生成下载链接"><span class="nav-number"></span> <span class="nav-text">四、如何使用Active Storage生成下载链接</span></a></div>
             
 
           </div>
